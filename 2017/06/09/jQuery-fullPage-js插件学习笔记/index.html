@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="学习jQuery-fullPage.js插件已经两天，参照网上的案例仿造了一个“魅族Note2官网”网页，中间出了很多问题，不过最终还是被我做出来了，准备自己一些鼓励！！老规矩，我要总结一些自己学过的内容，以后有这种需求的时候可以直接拿过来用。 demo">
+<meta name="description" content="学习 jQuery-fullPage.js 插件已经两天，参照网上的案例仿造了一个“魅族Note2官网”网页，中间出了很多问题，不过最终还是被我做出来了，准备自己一些鼓励！！老规矩，我要总结一些自己学过的内容，以后有这种需求的时候可以直接拿过来用。 简介jQuery-fullPage.js 是一个用于实现全屏滚动的jQuery插件，很多高端大气的网页都是使用这个插件完成的。 插件的主要功能：  支">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jQuery-fullPage.js插件学习笔记">
 <meta property="og:url" content="https://linlif.github.io/2017/06/09/jQuery-fullPage-js插件学习笔记/index.html">
 <meta property="og:site_name" content="linlif-blog">
-<meta property="og:description" content="学习jQuery-fullPage.js插件已经两天，参照网上的案例仿造了一个“魅族Note2官网”网页，中间出了很多问题，不过最终还是被我做出来了，准备自己一些鼓励！！老规矩，我要总结一些自己学过的内容，以后有这种需求的时候可以直接拿过来用。 demo">
-<meta property="og:updated_time" content="2017-06-09T09:30:23.000Z">
+<meta property="og:description" content="学习 jQuery-fullPage.js 插件已经两天，参照网上的案例仿造了一个“魅族Note2官网”网页，中间出了很多问题，不过最终还是被我做出来了，准备自己一些鼓励！！老规矩，我要总结一些自己学过的内容，以后有这种需求的时候可以直接拿过来用。 简介jQuery-fullPage.js 是一个用于实现全屏滚动的jQuery插件，很多高端大气的网页都是使用这个插件完成的。 插件的主要功能：  支">
+<meta property="og:updated_time" content="2017-06-09T12:16:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jQuery-fullPage.js插件学习笔记">
-<meta name="twitter:description" content="学习jQuery-fullPage.js插件已经两天，参照网上的案例仿造了一个“魅族Note2官网”网页，中间出了很多问题，不过最终还是被我做出来了，准备自己一些鼓励！！老规矩，我要总结一些自己学过的内容，以后有这种需求的时候可以直接拿过来用。 demo">
+<meta name="twitter:description" content="学习 jQuery-fullPage.js 插件已经两天，参照网上的案例仿造了一个“魅族Note2官网”网页，中间出了很多问题，不过最终还是被我做出来了，准备自己一些鼓励！！老规矩，我要总结一些自己学过的内容，以后有这种需求的时候可以直接拿过来用。 简介jQuery-fullPage.js 是一个用于实现全屏滚动的jQuery插件，很多高端大气的网页都是使用这个插件完成的。 插件的主要功能：  支">
 
 
 
@@ -348,8 +348,463 @@
       
 
       
-        <p>学习jQuery-fullPage.js插件已经两天，参照网上的案例仿造了一个“魅族Note2官网”网页，中间出了很<br>多问题，不过最终还是被我做出来了，准备自己一些鼓励！！老规矩，我要总结一些自己学过的内容，以后有<br>这种需求的时候可以直接拿过来用。</p>
-<p><a href="../index.html">demo</a></p>
+        <p>学习 jQuery-fullPage.js 插件已经两天，参照网上的案例仿造了一个“魅族Note2官网”网页，中间出了很多问题，不过最终还是被我做出来了，准备自己一些鼓励！！老规矩，我要总结一些自己学过的内容，以后有这种需求的时候可以直接拿过来用。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>jQuery-fullPage.js 是一个用于实现全屏滚动的jQuery插件，很多高端大气的网页都是使用这个插件完成的。</p>
+<p>插件的主要功能：</p>
+<ul>
+<li>支持鼠标滚动</li>
+<li>支持前进后退和键盘控制</li>
+<li>多个回调函数</li>
+<li>支持手机、平板触摸事件</li>
+<li>支持 CSS3 动画</li>
+<li>支持窗口缩放</li>
+<li>窗口缩放时自动调整</li>
+<li>可设置滚动宽度、背景颜色、滚动速度、循环选项、回调、文本对齐方式等等</li>
+</ul>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><ul>
+<li>浏览器：fullPage.js 支持 IE8+ 及其他现代浏览器</li>
+<li>jQuery版本：兼容 jQuery 1.7+ 版本</li>
+</ul>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="引入文件"><a href="#引入文件" class="headerlink" title="引入文件"></a>引入文件</h3><ul>
+<li><p>该插件需要jQuery库支持，所以需要先引入jQuery库，然后再引入fullPage.js库</p>
+</li>
+<li><p>另外别忘了在<code>head</code>标签中引入 <code>jquery.fullPage.css</code>样式文件</p>
+</li>
+<li><p>注释的代码属于进阶的知识，一般情况下使用不到，大家可根据需要自行引入</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"css/jquery.fullPage.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- jquery.easings.min.js 用于 easing 参数，也可以使用完整的 jQuery UI 代替，如果不需要设置 easing 参数，可去掉改文件 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- &lt;script src="js/jquery.easings.min.js"&gt;&lt;/script&gt; --&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 如果 scrollOverflow 设置为 true，则需要引入 jquery.slimscroll.min.js，一般情况下不需要 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- &lt;script src="js/jquery.slimscroll.min.js"&gt;&lt;/script&gt; --&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.fullPage.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"fullgage"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h3</span>&gt;</span>第一屏<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h3</span>&gt;</span>第二屏<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h3</span>&gt;</span>第三屏<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h3</span>&gt;</span>第四屏<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>每个 section 代表一屏，默认显示“第一屏”，如果要指定加载页面时显示的“屏幕”，可以在对应的 section 加上 class=”active”，如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section active"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>同时，可以在 section 内加入 slide，如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"fullgage"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section page1"</span>&gt;</span>第一屏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section page2"</span>&gt;</span>第二屏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section page3"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slide"</span>&gt;</span>第三屏的第一屏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slide"</span>&gt;</span>第三屏的第二屏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slide"</span>&gt;</span>第三屏的第三屏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slide"</span>&gt;</span>第三屏的第四屏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section page4"</span>&gt;</span>第四屏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="JavaScript代码"><a href="#JavaScript代码" class="headerlink" title="JavaScript代码"></a>JavaScript代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> $mlNav = $(<span class="string">'.ml-nav'</span>);</div><div class="line">    $(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">        <span class="attr">navigation</span>: <span class="literal">true</span>, <span class="comment">//右侧小点点导航</span></div><div class="line">        anchors:[<span class="string">"page1"</span>,<span class="string">"page2"</span>,<span class="string">"page3"</span>,<span class="string">"page4"</span>], <span class="comment">//锚文本，使浏览器的前进后退键生效，地址栏链接可以直接定位到内页（section）</span></div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>以上是最简单的fullpage初始化代码，你也可以加入更多的选项，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line"><span class="comment">//Navigation</span></div><div class="line">menu: <span class="literal">false</span>,</div><div class="line"><span class="attr">lockAnchors</span>: <span class="literal">false</span>,</div><div class="line"><span class="attr">anchors</span>:[<span class="string">'firstPage'</span>, <span class="string">'secondPage'</span>],</div><div class="line"><span class="attr">navigation</span>: <span class="literal">false</span>,</div><div class="line"><span class="attr">navigationPosition</span>: <span class="string">'right'</span>,</div><div class="line"><span class="attr">navigationTooltips</span>: [<span class="string">'firstSlide'</span>, <span class="string">'secondSlide'</span>],</div><div class="line"><span class="attr">showActiveTooltip</span>: <span class="literal">false</span>,</div><div class="line"><span class="attr">slidesNavigation</span>: <span class="literal">true</span>,</div><div class="line"><span class="attr">slidesNavPosition</span>: <span class="string">'bottom'</span>,</div><div class="line"></div><div class="line"><span class="comment">//Scrolling</span></div><div class="line">css3: <span class="literal">true</span>,</div><div class="line"><span class="attr">scrollingSpeed</span>: <span class="number">700</span>,</div><div class="line"><span class="attr">autoScrolling</span>: <span class="literal">true</span>,</div><div class="line"><span class="attr">fitToSection</span>: <span class="literal">true</span>,</div><div class="line"><span class="attr">scrollBar</span>: <span class="literal">false</span>,</div><div class="line"><span class="attr">easing</span>: <span class="string">'easeInOutCubic'</span>,</div><div class="line"><span class="attr">easingcss3</span>: <span class="string">'ease'</span>,</div><div class="line"><span class="attr">loopBottom</span>: <span class="literal">false</span>,</div><div class="line"><span class="attr">loopTop</span>: <span class="literal">false</span>,</div><div class="line"><span class="attr">loopHorizontal</span>: <span class="literal">true</span>,</div><div class="line"><span class="attr">continuousVertical</span>: <span class="literal">false</span>,</div><div class="line"><span class="attr">normalScrollElements</span>: <span class="string">'#element1, .element2'</span>,</div><div class="line"><span class="attr">scrollOverflow</span>: <span class="literal">false</span>,</div><div class="line"><span class="attr">touchSensitivity</span>: <span class="number">15</span>,</div><div class="line"><span class="attr">normalScrollElementTouchThreshold</span>: <span class="number">5</span>,</div><div class="line"></div><div class="line"><span class="comment">//Accessibility</span></div><div class="line">keyboardScrolling: <span class="literal">true</span>,</div><div class="line"><span class="attr">animateAnchor</span>: <span class="literal">true</span>,</div><div class="line"><span class="attr">recordHistory</span>: <span class="literal">true</span>,</div><div class="line"></div><div class="line"><span class="comment">//Design</span></div><div class="line">controlArrows: <span class="literal">true</span>,</div><div class="line"><span class="attr">verticalCentered</span>: <span class="literal">true</span>,</div><div class="line"><span class="attr">resize</span> : <span class="literal">false</span>,</div><div class="line"><span class="attr">sectionsColor</span> : [<span class="string">'#ccc'</span>, <span class="string">'#fff'</span>],</div><div class="line"><span class="attr">paddingTop</span>: <span class="string">'3em'</span>,</div><div class="line"><span class="attr">paddingBottom</span>: <span class="string">'10px'</span>,</div><div class="line"><span class="attr">fixedElements</span>: <span class="string">'#header, .footer'</span>,</div><div class="line"><span class="attr">responsiveWidth</span>: <span class="number">0</span>,</div><div class="line"><span class="attr">responsiveHeight</span>: <span class="number">0</span>,</div><div class="line"></div><div class="line"><span class="comment">//Custom selectors</span></div><div class="line">sectionSelector: <span class="string">'.section'</span>,</div><div class="line"><span class="attr">slideSelector</span>: <span class="string">'.slide'</span>,</div><div class="line"></div><div class="line"><span class="comment">//events</span></div><div class="line">onLeave: <span class="function"><span class="keyword">function</span>(<span class="params">index, nextIndex, direction</span>)</span>&#123;&#125;,</div><div class="line"><span class="attr">afterLoad</span>: <span class="function"><span class="keyword">function</span>(<span class="params">anchorLink, index</span>)</span>&#123;&#125;,</div><div class="line"><span class="attr">afterRender</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line"><span class="attr">afterResize</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line"><span class="attr">afterSlideLoad</span>: <span class="function"><span class="keyword">function</span>(<span class="params">anchorLink, index, slideAnchor, slideIndex</span>)</span>&#123;&#125;,</div><div class="line"><span class="attr">onSlideLeave</span>: <span class="function"><span class="keyword">function</span>(<span class="params">anchorLink, index, slideIndex, direction, nextSlideIndex</span>)</span>&#123;&#125;</div><div class="line">&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="fullPage-js插件配置参数说明"><a href="#fullPage-js插件配置参数说明" class="headerlink" title="fullPage.js插件配置参数说明"></a>fullPage.js插件配置参数说明</h2><p>1、配置参数，可以在fullpage的方法内使用，例如前面「 JavaScript代码 」中的<code>navigation:truenavigation: true</code></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明                      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>verticalCentered</td>
+<td>字符串</td>
+<td>true</td>
+<td>内容是否垂直居中</td>
+</tr>
+<tr>
+<td>resize</td>
+<td>布尔值</td>
+<td>false</td>
+<td>字体是否随着窗口缩放而缩放</td>
+</tr>
+<tr>
+<td>slidesColor</td>
+<td>函数</td>
+<td>无</td>
+<td>设置背景颜色</td>
+</tr>
+<tr>
+<td>anchors</td>
+<td>数组</td>
+<td>无</td>
+<td>定义锚链接</td>
+</tr>
+<tr>
+<td>scrollingSpeed</td>
+<td>整数</td>
+<td>700</td>
+<td>滚动速度，单位为毫秒</td>
+</tr>
+<tr>
+<td>easing</td>
+<td>字符串</td>
+<td>easeInQuart</td>
+<td>滚动动画方式</td>
+</tr>
+<tr>
+<td>menu</td>
+<td>布尔值</td>
+<td>false</td>
+<td>绑定菜单，设定的相关属性与 anchors 的值对应后，菜单可以控制滚动</td>
+</tr>
+<tr>
+<td>navigation</td>
+<td>布尔值</td>
+<td>false</td>
+<td>是否显示项目导航</td>
+</tr>
+<tr>
+<td>navigationPosition</td>
+<td>字符串</td>
+<td>right</td>
+<td>项目导航的位置，可选 left 或 right</td>
+</tr>
+<tr>
+<td>navigationColor</td>
+<td>字符串</td>
+<td>#000</td>
+<td>项目导航的颜色</td>
+</tr>
+<tr>
+<td>navigationTooltips</td>
+<td>数组</td>
+<td>空</td>
+<td>项目导航的 tip</td>
+</tr>
+<tr>
+<td>slidesNavigation</td>
+<td>布尔值</td>
+<td>false</td>
+<td>是否显示左右滑块的项目导航</td>
+</tr>
+<tr>
+<td>slidesNavPosition</td>
+<td>字符串</td>
+<td>bottom</td>
+<td>左右滑块的项目导航的位置，可选 top 或 bottom</td>
+</tr>
+<tr>
+<td>controlArrowColor</td>
+<td>字符串</td>
+<td>#fff</td>
+<td>左右滑块的箭头的背景颜色</td>
+</tr>
+<tr>
+<td>loopBottom</td>
+<td>布尔值</td>
+<td>false</td>
+<td>滚动到最底部后是否滚回顶部</td>
+</tr>
+<tr>
+<td>loopTop</td>
+<td>布尔值</td>
+<td>false</td>
+<td>滚动到最顶部后是否滚底部</td>
+</tr>
+<tr>
+<td>loopHorizontal</td>
+<td>布尔值</td>
+<td>true</td>
+<td>左右滑块是否循环滑动</td>
+</tr>
+<tr>
+<td>autoScrolling</td>
+<td>布尔值</td>
+<td>true</td>
+<td>是否使用插件的滚动方式，如果选择 false，则会出现浏览器自带的滚动条</td>
+</tr>
+<tr>
+<td>scrollOverflow</td>
+<td>布尔值</td>
+<td>false</td>
+<td>内容超过满屏后是否显示滚动条</td>
+</tr>
+<tr>
+<td>css3</td>
+<td>布尔值</td>
+<td>false</td>
+<td>是否使用 CSS3 transforms 滚动</td>
+</tr>
+<tr>
+<td>paddingTop</td>
+<td>字符串</td>
+<td>0</td>
+<td>与顶部的距离</td>
+</tr>
+<tr>
+<td>paddingBottom</td>
+<td>字符串</td>
+<td>0</td>
+<td>与底部距离</td>
+</tr>
+<tr>
+<td>fixedElements</td>
+<td>字符串</td>
+<td>无</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>normalScrollElements</td>
+<td>无</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>keyboardScrolling</td>
+<td>布尔值</td>
+<td>true</td>
+<td>是否使用键盘方向键导航</td>
+</tr>
+<tr>
+<td>touchSensitivity</td>
+<td>整数</td>
+<td>5</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>continuousVertical</td>
+<td>布尔值</td>
+<td>false</td>
+<td>是否循环滚动，与 loopTop 及 loopBottom 不兼容</td>
+</tr>
+<tr>
+<td>animateAnchor</td>
+<td>布尔值</td>
+<td>true</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>normalScrollElementTouchThreshold</td>
+<td>整数</td>
+<td>5</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="参数详细说明："><a href="#参数详细说明：" class="headerlink" title="参数详细说明："></a>参数详细说明：</h3><h4 id="controlArrows"><a href="#controlArrows" class="headerlink" title="controlArrows"></a><strong>controlArrows</strong></h4><p>默认值：true，决定是否使用控制箭头向左或向右移动幻灯片。</p>
+<h4 id="verticalCentered"><a href="#verticalCentered" class="headerlink" title="verticalCentered"></a><strong>verticalCentered</strong></h4><p>默认值：true，决定是否初始化后，是否垂直居中网页的内容，如果你想自定义元素的位置，那么你可以设置为false，在插件初始化后调用afterrender回调函数加载其它的脚本库设置你网页的内容。</p>
+<h4 id="resize"><a href="#resize" class="headerlink" title="resize"></a><strong>resize</strong></h4><p>默认值：true，是否在窗口改变大小后，自动调整网页中字体的大小。</p>
+<h4 id="scrollingSpeed"><a href="#scrollingSpeed" class="headerlink" title="scrollingSpeed"></a><strong>scrollingSpeed</strong></h4><p>默认值：700，每个屏幕滚动动画执行的时间，时间的单位为毫秒（ms）。</p>
+<h4 id="sectionsColor"><a href="#sectionsColor" class="headerlink" title="sectionsColor"></a><strong>sectionsColor</strong></h4><p>默认值：none，定义每个section的CSS背景演示，例如下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">  <span class="attr">sectionsColor</span>: [<span class="string">'#f2f2f2'</span>, <span class="string">'#4BBFC3'</span>, <span class="string">'#7BAABE'</span>, <span class="string">'whitesmoke'</span>, <span class="string">'#000'</span>],</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>如果设置的参数不对称，比如屏幕个数多余设置的颜色个数，那么多余的屏幕默认没有背景颜色，如果屏幕个数少于设置的颜色个数，那么多余的颜色将不显示。</p>
+<h4 id="anchors"><a href="#anchors" class="headerlink" title="anchors"></a><strong>anchors</strong></h4><p>默认值：[]，定义导航的锚文本信息例如（#example），每个导航文本之前用英文逗号（,）分隔，快速导航的锚文本URL也是使用的这个文本，浏览器通过此锚文本链接可以支持前进和后退按钮功能。</p>
+<p>此选项的设置还可以作为用户的书签，当用户打开带有锚文本的URL时，Fullpage可以自动跳转到对应的section屏幕或者slide幻灯片位置。</p>
+<p>注意，如果你使用了此选项，那么网页中不能有相同的ID，一来Fullpage插件无法准确的定位到section屏幕或者slide幻灯片位置，二来这也有悖网页中CSS的编写规范。</p>
+<h4 id="lockAnchors"><a href="#lockAnchors" class="headerlink" title="lockAnchors"></a><strong>lockAnchors</strong></h4><p>默认值：false，确定是否在URL中的锚点将在插件有任何影响。你仍然可以使用锚内部自己的函数和回调，但他们不会有任何作用，在网站的滚动。如果你想把fullpage.js在URL使用锚其他插件。</p>
+<p>注意，这样的设置有助于了解anchors选项在侧边栏菜单的对应关系，与类的元素的值。通过.section它在标记的位置。</p>
+<h4 id="easing"><a href="#easing" class="headerlink" title="easing"></a><strong>easing</strong></h4><p>默认值：easeInOutCubic，定义了用于垂直和水平滚动的过渡效果，它要求文件vendors/jquery.easings.min.js或者jQuery UI插件，具体的动画效果你可以参考 easings插件介绍 ，你也可以使用其它的动画插件库。</p>
+<h4 id="easingcss3"><a href="#easingcss3" class="headerlink" title="easingcss3"></a><strong>easingcss3</strong></h4><p>默认值：ease，定义在滚动屏幕中使用css3:true设置的过度效果，你可以使用 CSS3 transition-timing-function 属性 自定义多个动画效果，例如：linear、ease-out、……，或者使用cubic-bezier方法创建自定义的动画效果，你可能想要使用 Matthew Lein CSS Easing Animation Tool 创建这个。</p>
+<h4 id="loopTop"><a href="#loopTop" class="headerlink" title="loopTop"></a><strong>loopTop</strong></h4><p>默认值：false，定义屏幕滚动到第一个后，是否循序滚动到最后一个。</p>
+<h4 id="loopBottom"><a href="#loopBottom" class="headerlink" title="loopBottom"></a><strong>loopBottom</strong></h4><p>默认值：false，定义屏幕滚动到最后一个后，是否循环滚动到第一个。</p>
+<h4 id="loopHorizontal"><a href="#loopHorizontal" class="headerlink" title="loopHorizontal"></a><strong>loopHorizontal</strong></h4><p>默认值：true，定义水平的幻灯片是否循环切换。</p>
+<h4 id="css3"><a href="#css3" class="headerlink" title="css3"></a><strong>css3</strong></h4><p>默认值：true，确定是否使用JavaScript和CSS3转换滚动在切片和幻灯片。加快平板电脑和移动设备的浏览器支持CSS3的运动有益。如果此选项设置为true，浏览器不支持CSS3，jQuery回调函数将被替代。</p>
+<h4 id="autoScrolling"><a href="#autoScrolling" class="headerlink" title="autoScrolling"></a><strong>autoScrolling</strong></h4><p>默认值：true，定义屏幕是否自动滚动，还是需要用户触发事件滚动，它也影响了部分适合在平板电脑和手机浏览器/设备窗口。</p>
+<h4 id="fitToSection"><a href="#fitToSection" class="headerlink" title="fitToSection"></a><strong>fitToSection</strong></h4><p>默认值：true，设置是否自适应整个窗口的空间，以某个section的内容为分界线，设置为true时，某个的section将填充到整个页面，否者用户可以停留在网页的任何位置。</p>
+<h4 id="scrollBar"><a href="#scrollBar" class="headerlink" title="scrollBar"></a><strong>scrollBar</strong></h4><p>默认值：false，定义是否使用浏览器默认的滚动条，如果使用浏览器默认的滚动条，autoScrolling配置任然生效，用户也可以自由滚动的网站与滚动条和fullpage.js将适合的部分在屏幕滚动时完成。</p>
+<h4 id="paddingTop"><a href="#paddingTop" class="headerlink" title="paddingTop"></a><strong>paddingTop</strong></h4><p>默认值：0，定义每个section固定的头部留白，例如设置paddingBottom: ’10px’、 paddingBottom: ’10em’、……，在使用固定表头的情况下有用的。</p>
+<h4 id="fixedElements"><a href="#fixedElements" class="headerlink" title="fixedElements"></a><strong>fixedElements</strong></h4><p>默认值：null，定义的某个元素是否在网页的固定位置，元素将被关闭的插件是必要的时候，使用CSS3的选项保持滚动结构固定。它需要对这些元素的jQuery选择器字符串。例如：fixedElements: ‘#element1, .element2’。</p>
+<h4 id="normalScrollElements"><a href="#normalScrollElements" class="headerlink" title="normalScrollElements"></a><strong>normalScrollElements</strong></h4><p>默认值：null，如果你想避免自动滚动，滚动时的一些元素，这是你需要使用的选项。（有用的地图，滚动div等）需要对这些元素的jQuery选择器字符串。例如：<code>normalScrollElements: ‘#element1, .element2’</code>。</p>
+<h4 id="normalScrollElementTouchThreshold"><a href="#normalScrollElementTouchThreshold" class="headerlink" title="normalScrollElementTouchThreshold"></a><strong>normalScrollElementTouchThreshold</strong></h4><p>默认值：5，定义了一个数字，测试HTML标签树的机构，是否在在移动设备上支持触摸事件。</p>
+<h4 id="keyboardScrolling"><a href="#keyboardScrolling" class="headerlink" title="keyboardScrolling"></a><strong>keyboardScrolling</strong></h4><p>默认值：true，定义是否可以通过键盘箭头事件控制section的滚动。</p>
+<h4 id="touchSensitivity"><a href="#touchSensitivity" class="headerlink" title="touchSensitivity"></a><strong>touchSensitivity</strong></h4><p>默认值：5，定义了浏览器窗口的宽度/高度的百分比，多远的触摸滑动可以跳转到下一个section / slide。</p>
+<h4 id="continuousVertical"><a href="#continuousVertical" class="headerlink" title="continuousVertical"></a><strong>continuousVertical</strong></h4><p>默认值：false，定义向下滚动到最后一节是否应该向下滚动到第一个，如果向上滚动的第一部分应该滚动到最后一个。不兼容loopTop和loopBottom选项。</p>
+<h4 id="animateAnchor"><a href="#animateAnchor" class="headerlink" title="animateAnchor"></a><strong>animateAnchor</strong></h4><p>默认值：true，定义当网页的URL中有锚文本的时候，是否帮用户定位到对应的section或者slide。</p>
+<h4 id="recordHistory"><a href="#recordHistory" class="headerlink" title="recordHistory"></a><strong>recordHistory</strong></h4><p>默认值：true，定义是否将网页滚动的的状态纪录到浏览器的历史记录中。</p>
+<p>当设置为true时，每一个section/slide滚动的状态将纪录到浏览器的历史纪录中，这样的设置有利于用户方便回退到刚才浏览的内容。<br>当设置为false时候，用户的浏览路径不会记录到浏览器的历史纪录中，如果要取消这个选项可以使用autoScrolling:false。</p>
+<h4 id="menu"><a href="#menu" class="headerlink" title="menu"></a><strong>menu</strong></h4><p>默认值：false，一个选择器可以用来指定要与滚动互动的导航菜单，有点类似与Bootstrap的滚动监听。这样到滚动到某个section时，对应的菜单会被自动添加active类。</p>
+<p>注意，这个选项不会自动生成一个导航菜单，仅仅是给指定的菜单中当前菜单项添加一个active活动类。</p>
+<p>为了让自定义导航菜单和屏幕section互动，需要给菜单添加一个HTML5的自定义属性（data-menuanchor），需要和锚文本设置相同的内容，例如下面的示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"myMenu"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-menuanchor</span>=<span class="string">"firstPage"</span> <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#firstPage"</span>&gt;</span>First section<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-menuanchor</span>=<span class="string">"secondPage"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#secondPage"</span>&gt;</span>Second section<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-menuanchor</span>=<span class="string">"thirdPage"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#thirdPage"</span>&gt;</span>Third section<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-menuanchor</span>=<span class="string">"fourthPage"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#fourthPage"</span>&gt;</span>Fourth section<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">$('#fullpage').fullpage(&#123;</div><div class="line">    anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],</div><div class="line">    menu: '#myMenu'</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><em>注意：注意这个自定义的菜单代码应该放置到插件设置的内容外面，避免因为排版不兼容问题可以使用css3:true，否则将被附加到body的插件本身。</em></p>
+<h4 id="navigation"><a href="#navigation" class="headerlink" title="navigation"></a><strong>navigation</strong></h4><p>默认值：false，如果设置为true，那他将会显示一个小圆圈组成的快速导航栏。</p>
+<h4 id="navigationPosition"><a href="#navigationPosition" class="headerlink" title="navigationPosition"></a><strong>navigationPosition</strong></h4><p>默认值：none，结合参数navigation一起使用，用于设置navigation定义的菜单显示的位置，可以设置为left/right。</p>
+<h4 id="navigationTooltips"><a href="#navigationTooltips" class="headerlink" title="navigationTooltips"></a><strong>navigationTooltips</strong></h4><p>默认值：[]，定义当navigation设置为true的时候，鼠标移动到快速导航上面的提示文本，每个属性中间用英文半角逗号（,）隔开。</p>
+<h4 id="showActiveTooltip"><a href="#showActiveTooltip" class="headerlink" title="showActiveTooltip"></a><strong>showActiveTooltip</strong></h4><p>默认值：false，设置是否自动显示navigationTooltips中设置的工具提示文本。</p>
+<h4 id="slidesNavigation"><a href="#slidesNavigation" class="headerlink" title="slidesNavigation"></a><strong>slidesNavigation</strong></h4><p>默认值：false，使用方法同navigation，不过这个参数设置的导航显示位置不同，而且这个是用户设置幻灯片的。</p>
+<h4 id="slidesNavPosition"><a href="#slidesNavPosition" class="headerlink" title="slidesNavPosition"></a><strong>slidesNavPosition</strong></h4><p>默认值：bottom，定义slidesNavigation中设置的导航菜单显示的位置，可选的设置值为top/bottom，你可能要修改CSS样式确定的距离从顶部或底部以及任何其他风格如颜色。</p>
+<h4 id="scrollOverflow"><a href="#scrollOverflow" class="headerlink" title="scrollOverflow"></a><strong>scrollOverflow</strong></h4><p>默认值：false，设置当内容超过屏幕的高度的时候，是否裁切多余的内容。</p>
+<p>当设置为true时，你的内容将会被自动裁切，可以考虑当afterRender回调函数调用的时候，处理你的内容的多少或者使用其它的插件库合理的处理多余的内容。<br>当设置为false时，插件不会自动裁切多余的内容，但是剩下没有显示的内容任然不能显示，此时，你可以使用 jquery.slimscroll.min插件来自定义滚动事件，如果要使用这个插件，应该在Fullpage插件之前引入，例如下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"vendors/jquery.slimscroll.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div><div class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"jquery.fullPage.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<h4 id="sectionSelector"><a href="#sectionSelector" class="headerlink" title="sectionSelector"></a><strong>sectionSelector</strong></h4><p>默认值：.section，定义用于选择全屏滚动内容的jQuery选择器。它可能需要改变，有时为了避免与其他插件使用相同的选择器作为整版的问题。</p>
+<h4 id="slideSelector"><a href="#slideSelector" class="headerlink" title="slideSelector"></a><strong>slideSelector</strong></h4><p>默认值：.slide，定义用于插件幻灯片jQuery选择器。它可能需要改变，有时为了避免与其他插件使用相同的选择器fullpage.js问题。</p>
+<h4 id="responsiveWidth"><a href="#responsiveWidth" class="headerlink" title="responsiveWidth"></a><strong>responsiveWidth</strong></h4><p>默认值：0， A normal scroll (autoScrolling:false) will be used under the defined width in pixels. A class fp-responsive is added to the plugin&#8217;s container in case the user wants to use it for his own responsive CSS. For example, if set to 900, whenever the browser&#8217;s width is less than 900 the plugin will scroll like a normal site.</p>
+<h4 id="responsiveHeight"><a href="#responsiveHeight" class="headerlink" title="responsiveHeight"></a><strong>responsiveHeight</strong></h4><p>默认值：0， A normal scroll (autoScrolling:false) will be used under the defined height in pixels. A class fp-responsive is added to the plugin&#8217;s container in case the user wants to use it for his own responsive CSS. For example, if set to 900, whenever the browser&#8217;s height is less than 900 the plugin will scroll like a normal site.</p>
+<h2 id="fullPage-js插件方法函数"><a href="#fullPage-js插件方法函数" class="headerlink" title="fullPage.js插件方法函数"></a>fullPage.js插件方法函数</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>moveSectionUp()</td>
+<td>向上滚动</td>
+</tr>
+<tr>
+<td>moveSectionDown()</td>
+<td>向下滚动</td>
+</tr>
+<tr>
+<td>moveTo(section, slide)</td>
+<td>滚动到</td>
+</tr>
+<tr>
+<td>moveSlideRight()    slide</td>
+<td>向右滚动</td>
+</tr>
+<tr>
+<td>moveSlideLeft()    slide</td>
+<td>向左滚动</td>
+</tr>
+<tr>
+<td>setAutoScrolling()</td>
+<td>设置页面滚动方式，设置为 true 时自动滚动</td>
+</tr>
+<tr>
+<td>setAllowScrolling()</td>
+<td>添加或删除鼠标滚轮/触控板控制</td>
+</tr>
+<tr>
+<td>setKeyboardScrolling()</td>
+<td>添加或删除键盘方向键控制</td>
+</tr>
+<tr>
+<td>setScrollingSpeed()</td>
+<td>定义以毫秒为单位的滚动速度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="插件方法使用说明"><a href="#插件方法使用说明" class="headerlink" title="插件方法使用说明"></a>插件方法使用说明</h3><h4 id="moveSectionUp"><a href="#moveSectionUp" class="headerlink" title="moveSectionUp()"></a>moveSectionUp()</h4><p>设置section向上滚动</p>
+<p><code>$.fn.fullpage.moveSectionUp();</code></p>
+<h4 id="moveSectionDown"><a href="#moveSectionDown" class="headerlink" title="moveSectionDown()"></a>moveSectionDown()</h4><p>设置section向下滚动</p>
+<p><code>$.fn.fullpage.moveSectionDown();</code></p>
+<h4 id="moveTo-section-slide"><a href="#moveTo-section-slide" class="headerlink" title="moveTo(section, slide)"></a>moveTo(section, slide)</h4><p>设置屏幕滚动到某个section或者slide，两个参数都是某个内容块的索引值或者是锚文本，默认情况下slide的索引被设置为0。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/*Scrolling to the section with the anchor link `firstSlide` and to the 2nd Slide */</div><div class="line">$.fn.fullpage.moveTo('firstSlide', 2);</div><div class="line"> </div><div class="line">//Scrolling to the 3rd section in the site</div><div class="line">$.fn.fullpage.moveTo(3, 0);</div><div class="line"> </div><div class="line">//Which is the same as</div><div class="line">$.fn.fullpage.moveTo(3);</div></pre></td></tr></table></figure>
+<h4 id="silentMoveTo-section-slide"><a href="#silentMoveTo-section-slide" class="headerlink" title="silentMoveTo(section, slide)"></a>silentMoveTo(section, slide)</h4><p>这个函数的用法和MoveTo方法完全一样，只是MoveTo在切换的时候有动画效果，而silentMoveTo方法在切换的时候没有动画效果，直接跳转到对应的section中。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/*Scrolling to the section with the anchor link `firstSlide` and to the 2nd Slide */</div><div class="line">$.fn.fullpage.silentMoveTo('firstSlide', 2);</div></pre></td></tr></table></figure>
+<h4 id="moveSlideRight"><a href="#moveSlideRight" class="headerlink" title="moveSlideRight()"></a>moveSlideRight()</h4><p>设置幻灯片向右滑动，将下一个幻灯片显示在当前的屏幕中。</p>
+<p><code>$.fn.fullpage.moveSlideRight();</code></p>
+<h4 id="moveSlideLeft"><a href="#moveSlideLeft" class="headerlink" title="moveSlideLeft()"></a>moveSlideLeft()</h4><p>设置幻灯片向左滑动，将上一个幻灯片显示在当前的屏幕中。</p>
+<p><code>$.fn.fullpage.moveSlideLeft();</code></p>
+<h4 id="setAutoScrolling-boolean"><a href="#setAutoScrolling-boolean" class="headerlink" title="setAutoScrolling(boolean)"></a>setAutoScrolling(boolean)</h4><p>可以实时的控制页面滚动的方式，可选的参数false/true。</p>
+<ul>
+<li>如果参数被设置为true，所有的section将自动滚动。</li>
+<li>如果参数被设置为false，所有的section将不会自动滚动，需要用户手动或者使用浏览器的滑条滚动网页。</li>
+</ul>
+<p><em>注意，scrollOverflow参数如果设置为true，它可能很难滚动鼠标滚轮或触摸板当部分滚动.</em></p>
+<p><code>$.fn.fullpage.setAutoScrolling(false);</code></p>
+<h4 id="setFitToSection-boolean"><a href="#setFitToSection-boolean" class="headerlink" title="setFitToSection(boolean)"></a>setFitToSection(boolean)</h4><p>该函数设置选项fitToSection确定是否自适应section在屏幕上。</p>
+<p><code>$.fn.fullpage.setFitToSection(false);</code></p>
+<h4 id="setLockAnchors-boolean"><a href="#setLockAnchors-boolean" class="headerlink" title="setLockAnchors(boolean)"></a>setLockAnchors(boolean)</h4><p>设置选项lockAnchors确定将锚文本锁定到URL中。</p>
+<p><code>$.fn.fullpage.setLockAnchors(false);</code></p>
+<h4 id="setAllowScrolling-boolean-directions"><a href="#setAllowScrolling-boolean-directions" class="headerlink" title="setAllowScrolling(boolean, [directions])"></a>setAllowScrolling(boolean, [directions])</h4><p>添加或者禁止Fullpage自动绑定的鼠标滑轮和移动触摸事件，不过用户任然可以通过键盘和点击快速导航的方式切换section/slide。要取消键盘事件你应该使用setKeyboardScrolling方法。</p>
+<ul>
+<li>directions，可选参数，可以设置的值：all, up, down, left, right或者设置组合的参数，例如down, right，他设置的两个方向上将禁止或者激活滚动。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//disabling scrolling</div><div class="line">`$.fn.fullpage.setAllowScrolling(false);` </div><div class="line"></div><div class="line">//disabling scrolling down</div><div class="line">$.fn.fullpage.setAllowScrolling(false, &apos;down&apos;);</div><div class="line"> </div><div class="line">//disabling scrolling down and right</div><div class="line">$.fn.fullpage.setAllowScrolling(false, &apos;down, right&apos;);</div></pre></td></tr></table></figure>
+<h4 id="setKeyboardScrolling-boolean-directions"><a href="#setKeyboardScrolling-boolean-directions" class="headerlink" title="setKeyboardScrolling(boolean, [directions])"></a>setKeyboardScrolling(boolean, [directions])</h4><p>添加或者禁止键盘对section/slide的控制，这个事件是默认绑定的。</p>
+<ul>
+<li>directions，可选参数，可以设置的值：all, up, down, left, right或者设置组合的参数，例如down, right，他设置的两个方向上将禁止或者激活键盘的滚动。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">//disabling all keyboard scrolling</div><div class="line">$.fn.fullpage.setKeyboardScrolling(false);</div><div class="line"> </div><div class="line">//disabling keyboard scrolling down</div><div class="line">$.fn.fullpage.setKeyboardScrolling(false, &apos;down&apos;);</div><div class="line"> </div><div class="line">//disabling keyboard scrolling down and right</div><div class="line">$.fn.fullpage.setKeyboardScrolling(false, &apos;down, right&apos;);</div></pre></td></tr></table></figure>
+<h4 id="setRecordHistory-boolean"><a href="#setRecordHistory-boolean" class="headerlink" title="setRecordHistory(boolean)"></a>setRecordHistory(boolean)</h4><p>定义是否为每个URL的变更纪录到浏览器中的历史记录中。</p>
+<p><code>$.fn.fullpage.setRecordHistory(false);</code></p>
+<h4 id="setScrollingSpeed-milliseconds"><a href="#setScrollingSpeed-milliseconds" class="headerlink" title="setScrollingSpeed(milliseconds)"></a>setScrollingSpeed(milliseconds)</h4><p>定义每个section/slide滚动的时间，默认的时间单位为毫秒（ms）。</p>
+<p><code>$.fn.fullpage.setScrollingSpeed(700);</code></p>
+<h4 id="destroy-type"><a href="#destroy-type" class="headerlink" title="destroy(type)"></a>destroy(type)</h4><p>移除Fullpage的事件和添加的HTML/CSS样式风格，理想的使用在使用Ajax加载内容。</p>
+<ul>
+<li>type：可以被设置为空字符，或者all，如果一旦执行，通过Fullpage添加的HTML/CSS样式和代码都将会被移除，将显示没有使用Fullpage的样式，一个使用过任何插件进行修改。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//destroy any plugin event (scrolls, hashchange in the URL...)</div><div class="line">$.fn.fullpage.destroy();</div><div class="line"> </div><div class="line">//destroy any plugin event and any plugin modification done over your original HTML markup.</div><div class="line">$.fn.fullpage.destroy(&apos;all&apos;);</div></pre></td></tr></table></figure>
+<h4 id="reBuild"><a href="#reBuild" class="headerlink" title="reBuild()"></a>reBuild()</h4><p>更新DOM结构以适应新的窗口大小或其内容。理想的使用与Ajax调用或外部网站的DOM结构的变化组合。</p>
+<p><code>$.fn.fullpage.reBuild();</code></p>
+<h4 id="资源延时加载"><a href="#资源延时加载" class="headerlink" title="资源延时加载"></a>资源延时加载</h4><p>fullpage.js提供了一种懒加载图像，视频和音频元素，所以他们不会放慢您的网站加载或不必要的浪费数据传输。使用延迟加载时，所有这些元素只会加载时进入视口。启用延迟加载，所有你需要做的是改变你的src属性的data-src如下图所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;img data-src=&quot;image.png&quot;&gt;</div><div class="line">&lt;video&gt;</div><div class="line">  &lt;source data-src=&quot;video.webm&quot; type=&quot;video/webm&quot; /&gt;</div><div class="line">  &lt;source data-src=&quot;video.mp4&quot; type=&quot;video/mp4&quot; /&gt;</div><div class="line">&lt;/video&gt;</div></pre></td></tr></table></figure>
+<h2 id="fullPage-js插件回调函数"><a href="#fullPage-js插件回调函数" class="headerlink" title="fullPage.js插件回调函数"></a>fullPage.js插件回调函数</h2><p>3、函数</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>afterLoad</td>
+<td>滚动到某一屏后的回调函数，接收 anchorLink 和 index 两个参数，anchorLink 是锚链接的名称，index 是序号，从1开始计算</td>
+</tr>
+<tr>
+<td>onLeave</td>
+<td>滚动前的回调函数，接收 index、nextIndex 和 direction 3个参数：index 是离开的“页面”的序号，从1开始计算；nextIndex 是滚动到的“页面”的序号，从1开始计算； direction 判断往上滚动还是往下滚动，值是 up 或 down。</td>
+</tr>
+<tr>
+<td>afterRender</td>
+<td>页面结构生成后的回调函数，或者说页面初始化完成后的回调函数</td>
+</tr>
+<tr>
+<td>afterSlideLoad</td>
+<td>滚动到某一水平滑块后的回调函数，与 afterLoad 类似，接收 anchorLink、index、slideIndex、direction 4个参数</td>
+</tr>
+<tr>
+<td>onSlideLeave</td>
+<td>某一水平滑块滚动前的回调函数，与 onLeave 类似，接收 anchorLink、index、slideIndex、direction 4个参数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="插件回调函数使用说明"><a href="#插件回调函数使用说明" class="headerlink" title="插件回调函数使用说明"></a>插件回调函数使用说明</h3><h4 id="afterLoad-anchorLink-index"><a href="#afterLoad-anchorLink-index" class="headerlink" title="afterLoad (anchorLink, index)"></a>afterLoad (anchorLink, index)</h4><p>滚动到某一屏后的回调函数，接收 anchorLink 和 index 两个参数。</p>
+<ul>
+<li>anchorLink 是锚链接的名称</li>
+<li>index 是section的索引，从1开始计算</li>
+</ul>
+<p>在没有设置锚文本的情况下，只有使用唯一的index参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">	<span class="attr">anchors</span>: [<span class="string">'firstPage'</span>, <span class="string">'secondPage'</span>, <span class="string">'thirdPage'</span>, <span class="string">'fourthPage'</span>, <span class="string">'lastPage'</span>],</div><div class="line">	<span class="attr">afterLoad</span>: <span class="function"><span class="keyword">function</span>(<span class="params">anchorLink, index</span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> loadedSection = $(<span class="keyword">this</span>);</div><div class="line">		<span class="comment">//using index</span></div><div class="line">		<span class="keyword">if</span>(index == <span class="number">3</span>)&#123;</div><div class="line">			alert(<span class="string">"Section 3 ended loading"</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="comment">//using anchorLink</span></div><div class="line">		<span class="keyword">if</span>(anchorLink == <span class="string">'secondSlide'</span>)&#123;</div><div class="line">			alert(<span class="string">"Section 2 ended loading"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="onLeave-index-nextIndex-direction"><a href="#onLeave-index-nextIndex-direction" class="headerlink" title="onLeave (index, nextIndex, direction)"></a>onLeave (index, nextIndex, direction)</h4><p>滚动前的回调函数，接收 index、nextIndex 和 direction 3个参数</p>
+<ul>
+<li>index 是离开的“页面”的序号，从1开始计算；</li>
+<li>nextIndex 是滚动到的“页面”的序号，从1开始计算；</li>
+<li>direction 判断往上滚动还是往下滚动，值是 up 或 down。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">    <span class="attr">onLeave</span>: <span class="function"><span class="keyword">function</span>(<span class="params">index, nextIndex, direction</span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> leavingSection = $(<span class="keyword">this</span>);</div><div class="line">        <span class="comment">//after leaving section 2</span></div><div class="line">        <span class="keyword">if</span>(index == <span class="number">2</span> &amp;amp;&amp;amp; direction ==<span class="string">'down'</span>)&#123;</div><div class="line">            alert(<span class="string">"Going to section 3!"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(index == <span class="number">2</span> &amp;amp;&amp;amp; direction == <span class="string">'up'</span>)&#123;</div><div class="line">            alert(<span class="string">"Going to section 1!"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>取消section的滚动</p>
+<p>你可以在onLeave 回调函数中返回false，那么将取消滚动。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">    <span class="attr">onLeave</span>: <span class="function"><span class="keyword">function</span>(<span class="params">index, nextIndex, direction</span>)</span>&#123;</div><div class="line">        <span class="comment">//it won't scroll if the destination is the 3rd section</span></div><div class="line">        <span class="keyword">if</span>(nextIndex == <span class="number">3</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="afterRender"><a href="#afterRender" class="headerlink" title="afterRender()"></a>afterRender()</h4><p>这个回调函数只是在生成页面结构的时候调用。这是要用来初始化其他插件或删除任何需要的文件准备好代码的回调（这个插件修改DOM创建得到的结构）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">    <span class="attr">afterRender</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> pluginContainer = $(<span class="keyword">this</span>);</div><div class="line">        alert(<span class="string">"The resulting DOM structure is ready"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="afterResize"><a href="#afterResize" class="headerlink" title="afterResize()"></a>afterResize()</h4><p>这个回调函数在窗口发生大小改变的时候被调用，就在部分调整。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">    <span class="attr">afterResize</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> pluginContainer = $(<span class="keyword">this</span>);</div><div class="line">        alert(<span class="string">"The sections have finished resizing"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="afterSlideLoad-anchorLink-index-slideAnchor-slideIndex"><a href="#afterSlideLoad-anchorLink-index-slideAnchor-slideIndex" class="headerlink" title="afterSlideLoad (anchorLink, index, slideAnchor, slideIndex)"></a>afterSlideLoad (anchorLink, index, slideAnchor, slideIndex)</h4><p>滚动到某一水平滑块后的回调函数，与 afterLoad 类似，接收 anchorLink、index、slideIndex、direction 4个参数。</p>
+<ul>
+<li>anchorLink: anchorLink corresponding to the section.</li>
+<li>index: index of the section. Starting from 1.</li>
+<li>slideAnchor: anchor corresponding to the slide (in case there is)</li>
+<li>slideIndex: index of the slide. Starting from 1. (the default slide doesn&#8217;t count as slide, but as a section)<br>在没有anchorlinks的幻灯片或幻灯片SlideIndex参数是唯一使用定义的情况下。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">    <span class="attr">anchors</span>: [<span class="string">'firstPage'</span>, <span class="string">'secondPage'</span>, <span class="string">'thirdPage'</span>, <span class="string">'fourthPage'</span>, <span class="string">'lastPage'</span>],</div><div class="line"> </div><div class="line">    <span class="attr">afterSlideLoad</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> anchorLink, index, slideAnchor, slideIndex</span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> loadedSlide = $(<span class="keyword">this</span>);</div><div class="line"> </div><div class="line">        <span class="comment">//first slide of the second section</span></div><div class="line">        <span class="keyword">if</span>(anchorLink == <span class="string">'secondPage'</span> &amp;amp;&amp;amp; slideIndex == <span class="number">1</span>)&#123;</div><div class="line">            alert(<span class="string">"First slide loaded"</span>);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="comment">//second slide of the second section (supposing #secondSlide is the</span></div><div class="line">        <span class="comment">//anchor for the second slide</span></div><div class="line">        <span class="keyword">if</span>(index == <span class="number">2</span> &amp;amp;&amp;amp; slideIndex == <span class="string">'secondSlide'</span>)&#123;</div><div class="line">            alert(<span class="string">"Second slide loaded"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="onSlideLeave-anchorLink-index-slideIndex-direction-nextSlideIndex"><a href="#onSlideLeave-anchorLink-index-slideIndex-direction-nextSlideIndex" class="headerlink" title="onSlideLeave (anchorLink, index, slideIndex, direction, nextSlideIndex)"></a>onSlideLeave (anchorLink, index, slideIndex, direction, nextSlideIndex)</h4><p>某一水平滑块滚动前的回调函数，与 onLeave 类似，接收 anchorLink、index、slideIndex、direction 4个参数。</p>
+<ul>
+<li>anchorLink: anchorLink corresponding to the section.</li>
+<li>index: index of the section. Starting from 1.</li>
+<li>slideIndex: index of the slide. Starting from 0.</li>
+<li>direction: takes the values right or left depending on the scrolling direction.</li>
+<li>nextSlideIndex: index of the destination slide. Starting from 0.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#fullpage'</span>).fullpage(&#123;</div><div class="line">    <span class="attr">onSlideLeave</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> anchorLink, index, slideIndex, direction, nextSlideIndex</span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> leavingSlide = $(<span class="keyword">this</span>);</div><div class="line"> </div><div class="line">        <span class="comment">//leaving the first slide of the 2nd Section to the right</span></div><div class="line">        <span class="keyword">if</span>(index == <span class="number">2</span> &amp;amp;&amp;amp; slideIndex == <span class="number">0</span> &amp;amp;&amp;amp; direction == <span class="string">'right'</span>)&#123;</div><div class="line">            alert(<span class="string">"Leaving the fist slide!!"</span>);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="comment">//leaving the 3rd slide of the 2nd Section to the left</span></div><div class="line">        <span class="keyword">if</span>(index == <span class="number">2</span> &amp;amp;&amp;amp; slideIndex == <span class="number">2</span> &amp;amp;&amp;amp; direction == <span class="string">'left'</span>)&#123;</div><div class="line">            alert(<span class="string">"Going to slide 2! "</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>取消slide滑动</p>
+<p>你可以设置回调函数onSlideLeave 返回false，那么他将阻止此次的滑动事件，就像onLeave一样。</p>
+<p><br><br><br></p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p><strong>能否自定义某个Section的高度？</strong><br>这个需求一般出现在页面的顶部或者是底部，默认情况下，一个Section的内容会自动填充整个屏幕，如果你想要某个Section自适应内容的高度，你可以给它添加一个fp-auto-height类，例如下面的示例代码。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section"</span>&gt;</span>Whole viewport<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section fp-auto-height"</span>&gt;</span>Auto height<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">JavaScript代码无需修改，Fullpage会自动获取这个高度并设置给元素。</div></pre></td></tr></table></figure>
+<p><strong>滑动卡顿不流畅？</strong><br>滑动卡顿不流畅，这个问题可能跟硬件有关，Fullpage可以支持JS动画和CSS动画，而据我观察JS动画总是有些卡，而CSS动画就很流畅，可能跟浏览器硬件平台有关系，所以尽量选择CSS动画作为页面过度的动画效果。</p>
+<p>还有一点Fullpage默认绑定了鼠标的滑轮和键盘的上下左右键，当一个动画未执行完成时，再操作这个按键是无效的，Fullpage动画不会叠加在一起执行，这也是比较合乎逻辑的。</p>
+<p><strong>Parallax doesn’t work with fullpage.js</strong><br>Short answer: use the scrollBar:true option for fullPage.js or autoScrolling:false if you don’t want to use the auto-scrolling feature.</p>
+<p>Explanation: Parallax, as well as many other plugins which depends on the scrolling of the site, listens the scrollTop property of javascript and the scroll event. fullPage.js doesn’t actually scroll the site but it changes the top or translate3d property of the site. Only when using the fullPage.js option scrollBar:true or autoScrolling:false it will actually scroll the site in a way it is accessible for the scrollTop property.</p>
+<p><strong>jQuery scrollTop function doesn’t work</strong><br>Same answer as Parallax doesn’t work with fullpage.js</p>
+<p><strong>jQuery scroll event doesn’t work</strong><br>Same answer as Parallax doesn’t work with fullpage.js</p>
+<p>Also, consider using the callbacks provided by fullpage.js such as afterLoad, onLeave, afterSlideLeave and onSlideLeave detailed in the docs or the class added to the body element containing the active section/slide.</p>
+<p><strong>Is it possible to hide the address bar in mobile phones on landscape</strong><br>Short answer: on Apple iOS you can do that by avoid using the anchors option of fullPage.js.</p>
+<p>Explanation: each browser acts in a different way on this matter and it is not possible right now to control the behavior of the address bar by using javascript. You can try to take a look at different meta tags.</p>
+<p><strong>Lazyload doesn’t work</strong><br>Short answer: use the scrollBar:true option for fullPage.js. Otherwise, you can make use of the callbacks provided by fullPage.js such as onLeave, onSlideLeave, afterLoad, afterSlideLoad and afterRender to load images. One of those techniques is explained in this comment.</p>
+<p>Explanation: Lazyload techniques , as well as many other plugins which depends on the scrolling of the site, listens the scrollTop property of javascript. fullPage.js doesn’t actually scroll the site but it changes the top or translate3d property of the site. Only when using the fullPage.js option scrollBar:true or autoScrolling:false it will actually scroll the site in a way it is accessible for the scrollTop property.</p>
+<p><strong>My other plugins don’t work when using fullPage.js</strong><br>Short answer: initialize them in the afterRender callback of fullPage.js.</p>
+<p>Explanation: if you are using options such as verticalCentered:true or overflowScroll:true of fullPage.js or even horizontal slides, your content will be wrapped inside other elements changing its position in the DOM structure of the site. This way, your content would be consider as “dynamically added content” and most plugins need the content to be originally on the site to perform their tasks. Using the afterRender callback to initialize your plugins, fullPage.js makes sure to initialize them only when fullPage.js has stopped changing the DOM structure of the site.</p>
+<p><strong>My javascript/jQuery events don’t work anymore when using fullPage.js</strong><br>Short answer: if you are using options such as verticalCentered:true or overflowScroll:true in fullPage.js initialization, or even horizontal slides, then you will have to treat your selectors as dynamic elements and use delegation. (by using things such as on from jQuery). Another option is to add your code in the afterRender callback of fullpage.js</p>
+<p>Explanation: if you are using options such as verticalCentered:true or overflowScroll:true of fullPage.js or even horizontal slides, your content will be wrapped inside other elements changing its position in the DOM structure of the site. This way, your content would be consider as “dynamically added content” and most plugins need the content to be originally on the site to perform their tasks. Using the afterRender callback to initialize your plugins, fullPage.js makes sure to initialize them only when fullPage.js has stopped changing the DOM structure of the site.</p>
+<p><strong>How can I set fullscreen videos / backgrounds</strong><br>Short answer: this has nothing to do with fullPage.js but with CSS knowledge. You should try to find your answers in Google or places such as stackoverflow.com.</p>
+<p>Explanation: fullpage.js provides some examples with full backgrounds and full video backgrounds but it has nothing to do with the use of fullPage.js. It is all about CSS.</p>
+<p><strong>Fullpage.js jumps one section</strong><br>Short answer: as detailed in the documentation:</p>
+<p>Be careful! data-anchor tags can not have the same value as any ID element on the site (or NAME element for IE).<br>Explanation: there’s no way to avoid the browser’s behavior towards the use of anchors in the URL (#) when an element with the id or name attribute exists in the DOM with the exact same value.</p>
+<p><strong>Is it possible to scroll automatically through sections / slides?</strong><br>Short answer: Yep. Check this video tutorial for the automatic vertical scroll or this topic for the horizontal one.</p>
 
       
     </div>
@@ -441,8 +896,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -524,6 +988,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容性"><span class="nav-text">兼容性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引入文件"><span class="nav-text">引入文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码"><span class="nav-text">html代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript代码"><span class="nav-text">JavaScript代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fullPage-js插件配置参数说明"><span class="nav-text">fullPage.js插件配置参数说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数详细说明："><span class="nav-text">参数详细说明：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#controlArrows"><span class="nav-text">controlArrows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#verticalCentered"><span class="nav-text">verticalCentered</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#resize"><span class="nav-text">resize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrollingSpeed"><span class="nav-text">scrollingSpeed</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sectionsColor"><span class="nav-text">sectionsColor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#anchors"><span class="nav-text">anchors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lockAnchors"><span class="nav-text">lockAnchors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#easing"><span class="nav-text">easing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#easingcss3"><span class="nav-text">easingcss3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loopTop"><span class="nav-text">loopTop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loopBottom"><span class="nav-text">loopBottom</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loopHorizontal"><span class="nav-text">loopHorizontal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css3"><span class="nav-text">css3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#autoScrolling"><span class="nav-text">autoScrolling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fitToSection"><span class="nav-text">fitToSection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrollBar"><span class="nav-text">scrollBar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#paddingTop"><span class="nav-text">paddingTop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fixedElements"><span class="nav-text">fixedElements</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#normalScrollElements"><span class="nav-text">normalScrollElements</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#normalScrollElementTouchThreshold"><span class="nav-text">normalScrollElementTouchThreshold</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#keyboardScrolling"><span class="nav-text">keyboardScrolling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#touchSensitivity"><span class="nav-text">touchSensitivity</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#continuousVertical"><span class="nav-text">continuousVertical</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#animateAnchor"><span class="nav-text">animateAnchor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#recordHistory"><span class="nav-text">recordHistory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#menu"><span class="nav-text">menu</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#navigation"><span class="nav-text">navigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#navigationPosition"><span class="nav-text">navigationPosition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#navigationTooltips"><span class="nav-text">navigationTooltips</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#showActiveTooltip"><span class="nav-text">showActiveTooltip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slidesNavigation"><span class="nav-text">slidesNavigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slidesNavPosition"><span class="nav-text">slidesNavPosition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrollOverflow"><span class="nav-text">scrollOverflow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sectionSelector"><span class="nav-text">sectionSelector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slideSelector"><span class="nav-text">slideSelector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#responsiveWidth"><span class="nav-text">responsiveWidth</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#responsiveHeight"><span class="nav-text">responsiveHeight</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fullPage-js插件方法函数"><span class="nav-text">fullPage.js插件方法函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插件方法使用说明"><span class="nav-text">插件方法使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#moveSectionUp"><span class="nav-text">moveSectionUp()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#moveSectionDown"><span class="nav-text">moveSectionDown()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#moveTo-section-slide"><span class="nav-text">moveTo(section, slide)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#silentMoveTo-section-slide"><span class="nav-text">silentMoveTo(section, slide)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#moveSlideRight"><span class="nav-text">moveSlideRight()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#moveSlideLeft"><span class="nav-text">moveSlideLeft()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setAutoScrolling-boolean"><span class="nav-text">setAutoScrolling(boolean)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setFitToSection-boolean"><span class="nav-text">setFitToSection(boolean)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setLockAnchors-boolean"><span class="nav-text">setLockAnchors(boolean)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setAllowScrolling-boolean-directions"><span class="nav-text">setAllowScrolling(boolean, [directions])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setKeyboardScrolling-boolean-directions"><span class="nav-text">setKeyboardScrolling(boolean, [directions])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setRecordHistory-boolean"><span class="nav-text">setRecordHistory(boolean)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setScrollingSpeed-milliseconds"><span class="nav-text">setScrollingSpeed(milliseconds)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#destroy-type"><span class="nav-text">destroy(type)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reBuild"><span class="nav-text">reBuild()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源延时加载"><span class="nav-text">资源延时加载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fullPage-js插件回调函数"><span class="nav-text">fullPage.js插件回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插件回调函数使用说明"><span class="nav-text">插件回调函数使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#afterLoad-anchorLink-index"><span class="nav-text">afterLoad (anchorLink, index)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onLeave-index-nextIndex-direction"><span class="nav-text">onLeave (index, nextIndex, direction)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#afterRender"><span class="nav-text">afterRender()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#afterResize"><span class="nav-text">afterResize()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#afterSlideLoad-anchorLink-index-slideAnchor-slideIndex"><span class="nav-text">afterSlideLoad (anchorLink, index, slideAnchor, slideIndex)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onSlideLeave-anchorLink-index-slideIndex-direction-nextSlideIndex"><span class="nav-text">onSlideLeave (anchorLink, index, slideIndex, direction, nextSlideIndex)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-text">常见问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
