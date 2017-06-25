@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo分类,hexo标签," />
+  <meta name="keywords" content="jsonP,百度下拉" />
 
 
 
@@ -90,21 +90,19 @@
 
 
 
-<meta name="description" content="本教程针对的是Mac环境下，nexT主题的文章分类和标签设置，其他主题也应该是类似的。添加成功后会在侧边栏或导航栏生成“分类”和“标签”这两个选项，看下图：  点击“分类”后的页面：  点击“标签”后的页面：  ok，大概效果就是这样的，下面进入教程 1、创建“分类”选项1.1 生成“分类”页并添加tpye属性打开命令行，进入博客所在文件夹。执行命令 1$ hexo new page catego">
-<meta name="keywords" content="hexo分类,hexo标签">
+<meta name="description" content="使用到的百度jsonP接口地址：http://suggestion.baidu.com/su?wd=关键词(aa)&amp;amp;cb=回调函数名(callback) 使用这个格式请求时，会得到一个回调函数（这里使用的关键词是aa，回调函数名是callback）： 1234567891011121314151617181920212223242526272829303132333435363738394">
+<meta name="keywords" content="jsonP,百度下拉">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo使用攻略-添加分类及标签">
-<meta property="og:url" content="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/index.html">
+<meta property="og:title" content="使用jsonp实现百度关键词下拉提示">
+<meta property="og:url" content="https://linlif.github.io/2017/06/25/使用jsonP实现百度关键词下拉提示/index.html">
 <meta property="og:site_name" content="linlif-blog">
-<meta property="og:description" content="本教程针对的是Mac环境下，nexT主题的文章分类和标签设置，其他主题也应该是类似的。添加成功后会在侧边栏或导航栏生成“分类”和“标签”这两个选项，看下图：  点击“分类”后的页面：  点击“标签”后的页面：  ok，大概效果就是这样的，下面进入教程 1、创建“分类”选项1.1 生成“分类”页并添加tpye属性打开命令行，进入博客所在文件夹。执行命令 1$ hexo new page catego">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4626959-23b970682d0c20cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4626959-dc5f0529786030ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4626959-c6f5d3bf80118f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-05-27T08:11:46.000Z">
+<meta property="og:description" content="使用到的百度jsonP接口地址：http://suggestion.baidu.com/su?wd=关键词(aa)&amp;amp;cb=回调函数名(callback) 使用这个格式请求时，会得到一个回调函数（这里使用的关键词是aa，回调函数名是callback）： 1234567891011121314151617181920212223242526272829303132333435363738394">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4626959-731f44511f4ee71f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-06-25T07:40:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo使用攻略-添加分类及标签">
-<meta name="twitter:description" content="本教程针对的是Mac环境下，nexT主题的文章分类和标签设置，其他主题也应该是类似的。添加成功后会在侧边栏或导航栏生成“分类”和“标签”这两个选项，看下图：  点击“分类”后的页面：  点击“标签”后的页面：  ok，大概效果就是这样的，下面进入教程 1、创建“分类”选项1.1 生成“分类”页并添加tpye属性打开命令行，进入博客所在文件夹。执行命令 1$ hexo new page catego">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4626959-23b970682d0c20cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="使用jsonp实现百度关键词下拉提示">
+<meta name="twitter:description" content="使用到的百度jsonP接口地址：http://suggestion.baidu.com/su?wd=关键词(aa)&amp;amp;cb=回调函数名(callback) 使用这个格式请求时，会得到一个回调函数（这里使用的关键词是aa，回调函数名是callback）： 1234567891011121314151617181920212223242526272829303132333435363738394">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4626959-731f44511f4ee71f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -132,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/"/>
+  <link rel="canonical" href="https://linlif.github.io/2017/06/25/使用jsonP实现百度关键词下拉提示/"/>
 
 
 
 
 
-  <title>Hexo使用攻略-添加分类及标签 | linlif-blog</title>
+  <title>使用jsonp实现百度关键词下拉提示 | linlif-blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -278,7 +276,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/">
+    <link itemprop="mainEntityOfPage" href="https://linlif.github.io/2017/06/25/使用jsonP实现百度关键词下拉提示/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="linlif">
@@ -295,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo使用攻略-添加分类及标签</h1>
+          <h1 class="post-title" itemprop="name headline">使用jsonp实现百度关键词下拉提示</h1>
         
 
         <div class="post-meta">
@@ -307,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-27T15:45:06+08:00">
-                2017-05-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T14:12:07+08:00">
+                2017-06-25
               </time>
             
 
@@ -330,8 +328,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
                   </a>
                 </span>
 
@@ -347,7 +345,7 @@
 
           
           
-             <span id="/2017/05/27/Hexo使用攻略-添加分类及标签/" class="leancloud_visitors" data-flag-title="Hexo使用攻略-添加分类及标签">
+             <span id="/2017/06/25/使用jsonP实现百度关键词下拉提示/" class="leancloud_visitors" data-flag-title="使用jsonp实现百度关键词下拉提示">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,40 +373,16 @@
       
 
       
-        <p>本教程针对的是Mac环境下，nexT主题的文章分类和标签设置，其他主题也应该是类似的。添加成功后会在侧边栏或导航栏生成“分类”和“标签”这两个选项，看下图：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4626959-23b970682d0c20cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="文章分类、标签"></p>
-<p>点击“分类”后的页面：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4626959-dc5f0529786030ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="文章分类页"></p>
-<p>点击“标签”后的页面：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4626959-c6f5d3bf80118f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="标签"></p>
-<p>ok，大概效果就是这样的，下面进入教程</p>
-<h3 id="1、创建“分类”选项"><a href="#1、创建“分类”选项" class="headerlink" title="1、创建“分类”选项"></a>1、创建“分类”选项</h3><h4 id="1-1-生成“分类”页并添加tpye属性"><a href="#1-1-生成“分类”页并添加tpye属性" class="headerlink" title="1.1 生成“分类”页并添加tpye属性"></a>1.1 生成“分类”页并添加tpye属性</h4><p>打开命令行，进入博客所在文件夹。执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page categories</div></pre></td></tr></table></figure>
-<p>成功后会提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INFO  Created: ~/Documents/blog/source/categories/index.md</div></pre></td></tr></table></figure>
-<p>根据上面的路径，找到<code>index.md</code>这个文件，打开后默认内容是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 文章分类</div><div class="line">date: 2017-05-27 13:47:40</div><div class="line">---</div></pre></td></tr></table></figure>
-<p>添加<code>type: &quot;categories&quot;</code>到内容中，添加后是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 文章分类</div><div class="line">date: 2017-05-27 13:47:40</div><div class="line">type: &quot;categories&quot;</div><div class="line">---</div></pre></td></tr></table></figure>
-<p>保存并关闭文件。</p>
-<h4 id="1-2-给文章添加“categories”属性"><a href="#1-2-给文章添加“categories”属性" class="headerlink" title="1.2 给文章添加“categories”属性"></a>1.2 给文章添加“categories”属性</h4><p>打开需要添加分类的文章，为其添加categories属性。下方的<code>categories: web前端</code>表示添加这篇文章到“web前端”这个分类。注意：hexo一篇文章只能属于一个分类，也就是说如果在“- web前端”下方添加“-xxx”，hexo不会产生两个分类，而是把分类嵌套（即该文章属于 “- web前端”下的 “-xxx ”分类）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: jQuery对表单的操作及更多应用</div><div class="line">date: 2017-05-26 12:12:57</div><div class="line">categories: </div><div class="line">- web前端</div><div class="line">---</div></pre></td></tr></table></figure>
-<p>至此，成功给文章添加分类，点击首页的“分类”可以看到该分类下的所有文章。当然，只有添加了<code>categories: xxx</code>的文章才会被收录到首页的“分类”中。</p>
-<h3 id="2、创建“标签”选项"><a href="#2、创建“标签”选项" class="headerlink" title="2、创建“标签”选项"></a>2、创建“标签”选项</h3><h4 id="2-1-生成“标签”页并添加tpye属性"><a href="#2-1-生成“标签”页并添加tpye属性" class="headerlink" title="2.1 生成“标签”页并添加tpye属性"></a>2.1 生成“标签”页并添加tpye属性</h4><p>打开命令行，进入博客所在文件夹。执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page tags</div></pre></td></tr></table></figure>
-<p>成功后会提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INFO  Created: ~/Documents/blog/source/tags/index.md</div></pre></td></tr></table></figure>
-<p>根据上面的路径，找到<code>index.md</code>这个文件，打开后默认内容是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 标签</div><div class="line">date: 2017-05-27 14:22:08</div><div class="line">---</div></pre></td></tr></table></figure>
-<p>添加<code>type: &quot;tags&quot;</code>到内容中，添加后是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 文章分类</div><div class="line">date: 2017-05-27 13:47:40</div><div class="line">type: &quot;tags&quot;</div><div class="line">---</div></pre></td></tr></table></figure>
-<p>保存并关闭文件。</p>
-<h4 id="2-2-给文章添加“tags”属性"><a href="#2-2-给文章添加“tags”属性" class="headerlink" title="2.2 给文章添加“tags”属性"></a>2.2 给文章添加“tags”属性</h4><p>打开需要添加标签的文章，为其添加tags属性。下方的<code>tags:</code>下方的<code>- jQuery</code> <code>- 表格</code><br><code>- 表单验证</code>就是这篇文章的标签了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: jQuery对表单的操作及更多应用</div><div class="line">date: 2017-05-26 12:12:57</div><div class="line">categories: </div><div class="line">- web前端</div><div class="line">tags:</div><div class="line">- jQuery</div><div class="line">- 表格</div><div class="line">- 表单验证</div><div class="line">---</div></pre></td></tr></table></figure>
-<p>至此，成功给文章添加分类，点击首页的“标签”可以看到该标签下的所有文章。当然，只有添加了<code>tags: xxx</code>的文章才会被收录到首页的“标签”中。</p>
-<p>细心的朋友可能已经发现，这两个的设置几乎一模一样！是的，没错，思路都是一样的。所以我们可以打开scaffolds/post.md文件，在tages:上面加入categories:,保存后，之后执行<code>hexo new 文章名</code>命令生成的文件，页面里就有<code>categories:</code>项了。</p>
-<p>scaffolds目录下，是新建页面的模板，执行新建命令时，是根据这里的模板页来完成的，所以可以在这里根据你自己的需求添加一些默认值。</p>
-<p>教程结束，赶紧去设置吧！</p>
+        <p>使用到的百度jsonP接口地址：<br><code>http://suggestion.baidu.com/su?wd=关键词(aa)&amp;cb=回调函数名(callback)</code></p>
+<p>使用这个格式请求时，会得到一个回调函数（这里使用的关键词是aa，回调函数名是callback）：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">callback(&#123;q: "aa", p: false,…&#125;);</div><div class="line">p</div><div class="line">:</div><div class="line">false</div><div class="line">q</div><div class="line">:</div><div class="line">"aa"</div><div class="line">s</div><div class="line">:</div><div class="line">["aape官网", "aaa", "aabc形式的词语", "aape", "aac", "aae", "aa电池", "aar", "aas", "aabb"]</div><div class="line">0</div><div class="line">:</div><div class="line">"aape官网"</div><div class="line">1</div><div class="line">:</div><div class="line">"aaa"</div><div class="line">2</div><div class="line">:</div><div class="line">"aabc形式的词语"</div><div class="line">3</div><div class="line">:</div><div class="line">"aape"</div><div class="line">4</div><div class="line">:</div><div class="line">"aac"</div><div class="line">5</div><div class="line">:</div><div class="line">"aae"</div><div class="line">6</div><div class="line">:</div><div class="line">"aa电池"</div><div class="line">7</div><div class="line">:</div><div class="line">"aar"</div><div class="line">8</div><div class="line">:</div><div class="line">"aas"</div><div class="line">9</div><div class="line">:</div><div class="line">"aabb"</div></pre></td></tr></table></figure>
+<p>html代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>使用jsonP实现百度关键词下拉提示<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"wd"</span> <span class="attr">autofocus</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"ul1"</span>&gt;</span>下拉框，用于存放返回的关键词<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>CSS代码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">        p&#123;</div><div class="line">            color: #bf6900;</div><div class="line">            font-size: 24px;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #wd&#123;</div><div class="line">            border: none;</div><div class="line">            padding-left: 5px;</div><div class="line">            line-height: 40px;</div><div class="line">            font-size: 24px;</div><div class="line">            border: 1px solid #aaaaaa;</div><div class="line">            border-color: #bf6900;</div><div class="line">            width: 394px;</div><div class="line">            height: 40px;</div><div class="line">            outline: none;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #ul1&#123;</div><div class="line">            padding: 0;</div><div class="line">            margin: 0;</div><div class="line">            width: 400px;</div><div class="line">            border: 1px solid #bf6900;</div><div class="line">            display: none;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #ul1 li a&#123;</div><div class="line">            font-size: 24px;</div><div class="line">            padding: 5px 0;</div><div class="line">            text-decoration: none;</div><div class="line">            display: block;</div><div class="line">            color: #bf6900;</div><div class="line">            padding-left: 5px;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #ul1 li a:hover&#123;</div><div class="line">            color: white;</div><div class="line">            background-color: #bf6900;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div></pre></td></tr></table></figure>
+<p>javascript代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">        <span class="comment">//回调函数，需定义为全局函数</span></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">            <span class="keyword">var</span> oUl1 = <span class="built_in">document</span>.getElementById(<span class="string">'ul1'</span>);</div><div class="line">            <span class="keyword">var</span> html = <span class="string">''</span>;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (data.s.length!=<span class="string">''</span>)&#123;</div><div class="line">                <span class="comment">//将返回的数据插入下拉框中</span></div><div class="line">                oUl1.style.display = <span class="string">'block'</span>;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;data.s.length;i++)&#123;</div><div class="line">                    html +=<span class="string">'&lt;li&gt;&lt;a target="#data" href="http://www.baidu.com/s?wd='</span>+data.s[i]+<span class="string">'"&gt;'</span>+ data.s[i] +<span class="string">'&lt;/a&gt;&lt;/li&gt;'</span>;</div><div class="line">                &#125;</div><div class="line">                oUl1.innerHTML = html;</div><div class="line"></div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="comment">//没有匹配的关键词时，隐藏下拉框</span></div><div class="line">                oUl1.style.display = <span class="string">'none'</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> ul1 = <span class="built_in">document</span>.getElementById(<span class="string">'ul1'</span>);</div><div class="line">            <span class="keyword">var</span> wd = <span class="built_in">document</span>.getElementById(<span class="string">'wd'</span>);</div><div class="line"></div><div class="line">            <span class="comment">//按键弹起触发jsonP请求</span></div><div class="line">            wd.onkeyup = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.value!=<span class="string">''</span>)&#123;</div><div class="line">                    <span class="keyword">var</span> oScript = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">                    oScript.src = <span class="string">'http://suggestion.baidu.com/su?wd='</span>+<span class="keyword">this</span>.value+<span class="string">'&amp;cb=callback'</span>;</div><div class="line">                    <span class="built_in">document</span>.body.appendChild(oScript);</div><div class="line">                &#125;<span class="keyword">else</span> &#123;</div><div class="line">                    ul1.style.display = <span class="string">"none"</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
+<p>效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/4626959-731f44511f4ee71f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
 
       
     </div>
@@ -438,9 +412,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo分类/" rel="tag"># hexo分类</a>
+            <a href="/tags/jsonP原理/" rel="tag"># jsonP原理</a>
           
-            <a href="/tags/hexo标签/" rel="tag"># hexo标签</a>
+            <a href="/tags/百度下拉/" rel="tag"># 百度下拉</a>
           
         </div>
       
@@ -453,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/26/jQuery对表单的操作及更多应用/" rel="next" title="jQuery对表单的操作及更多应用">
-                <i class="fa fa-chevron-left"></i> jQuery对表单的操作及更多应用
+              <a href="/2017/06/24/jsonp基础原理/" rel="next" title="jsonp基础原理">
+                <i class="fa fa-chevron-left"></i> jsonp基础原理
               </a>
             
           </div>
@@ -462,10 +436,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/09/jQuery-fullPage-js插件学习笔记/" rel="prev" title="jQuery-fullPage.js插件学习笔记">
-                jQuery-fullPage.js插件学习笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -512,17 +482,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -604,22 +565,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、创建“分类”选项"><span class="nav-text">1、创建“分类”选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-生成“分类”页并添加tpye属性"><span class="nav-text">1.1 生成“分类”页并添加tpye属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-给文章添加“categories”属性"><span class="nav-text">1.2 给文章添加“categories”属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、创建“标签”选项"><span class="nav-text">2、创建“标签”选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-生成“标签”页并添加tpye属性"><span class="nav-text">2.1 生成“标签”页并添加tpye属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-给文章添加“tags”属性"><span class="nav-text">2.2 给文章添加“tags”属性</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
