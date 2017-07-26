@@ -1,0 +1,843 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vue,Vue2.x" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言接触Vue2.x已经有一段时间，该项目是基于最新的Vue2.x技术实现的，用到的技术栈有1vue2 + vue-router2 + vue-cli2 + vue-resource + stylus + flex布局 + es6 + eslint + webpack2 实现的功能： 商家优惠信息浮层，内容不足时关闭按钮仍能定位到底部（Sticky footers布局） 商品、评价、商家页面实现平">
+<meta name="keywords" content="Vue,Vue2.x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2.x重构饿了么App项目总结">
+<meta property="og:url" content="https://linlif.github.io/2017/07/26/Vue2-x重构饿了么App项目总结/index.html">
+<meta property="og:site_name" content="linlif-blog">
+<meta property="og:description" content="前言接触Vue2.x已经有一段时间，该项目是基于最新的Vue2.x技术实现的，用到的技术栈有1vue2 + vue-router2 + vue-cli2 + vue-resource + stylus + flex布局 + es6 + eslint + webpack2 实现的功能： 商家优惠信息浮层，内容不足时关闭按钮仍能定位到底部（Sticky footers布局） 商品、评价、商家页面实现平">
+<meta property="og:updated_time" content="2017-07-26T15:33:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue2.x重构饿了么App项目总结">
+<meta name="twitter:description" content="前言接触Vue2.x已经有一段时间，该项目是基于最新的Vue2.x技术实现的，用到的技术栈有1vue2 + vue-router2 + vue-cli2 + vue-resource + stylus + flex布局 + es6 + eslint + webpack2 实现的功能： 商家优惠信息浮层，内容不足时关闭按钮仍能定位到底部（Sticky footers布局） 商品、评价、商家页面实现平">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://linlif.github.io/2017/07/26/Vue2-x重构饿了么App项目总结/"/>
+
+
+
+
+
+  <title>Vue2.x重构饿了么App项目总结 | linlif-blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f8eb2e0a2f9a4254c8e9cb312618c71";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linlif-blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个沉淀知识的地方！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://linlif.github.io/2017/07/26/Vue2-x重构饿了么App项目总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="linlif">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linlif-blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue2.x重构饿了么App项目总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T18:42:09+08:00">
+                2017-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接触Vue2.x已经有一段时间，该项目是基于最新的Vue2.x技术实现的，用到的技术栈有<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vue2 + vue-router2 + vue-cli2 + vue-resource + stylus + flex布局 + es6 + eslint + webpack2</div></pre></td></tr></table></figure></p>
+<h3 id="实现的功能："><a href="#实现的功能：" class="headerlink" title="实现的功能："></a>实现的功能：</h3><ul>
+<li>商家优惠信息浮层，内容不足时关闭按钮仍能定位到底部（Sticky footers布局）</li>
+<li>商品、评价、商家页面实现平滑滚动</li>
+<li>商品页点击左侧menu，右侧内容跳转到相应位置</li>
+<li>评论内容支持分类查看，无内容时不显示筛选组件</li>
+<li>加入购物车按钮动画，商品飞入购物车动画，购物车展开收起动画</li>
+<li>商家实景图片超过屏幕宽度时，可左右滚动</li>
+<li>收藏商家使用localStorage缓存到浏览器本地 </li>
+</ul>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">build/----文件是 webpack 的打包编译配置文件</div><div class="line">config/----文件夹存放的是一些配置项，比如我们服务器访问的端口配置等</div><div class="line">node_moudules/----Node的组件，通过npm安装</div><div class="line">resource/----设计稿、标注图、通过icomoon生产的字体图标等</div><div class="line">src/----项目的入口文件,App.vue和main.js</div><div class="line">src/common/----存放通用的fonts、css和js文件</div><div class="line">src/components/----存放项目组件，每个组件独立管理自己的资源</div><div class="line">router/----文件夹存放的是vue-router相关配置</div><div class="line">dist/----该文件夹一开始是不存在，在我们的项目经过 build 之后才会产出</div><div class="line">prod.server.js----该文件是测试时模拟的服务器配置，用来运行dist里面的文件，在config/index.js中,build对象中添加一条端口设置port：9000，</div><div class="line">App.vue----根组件，所有的子组件都将在这里被引用index.html----整个项目的入口文件，将会引用我们的根组件 App.vue</div><div class="line">main.js----入口文件的 js 逻辑，在 webpack 打包之后将被注入到 index.html 中</div></pre></td></tr></table></figure>
+<h3 id="项目组件分析"><a href="#项目组件分析" class="headerlink" title="项目组件分析"></a>项目组件分析</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">组件目录：src/components/</div><div class="line">cartcontrol/---加入购物车按钮组件</div><div class="line">food/---商品详情页组件</div><div class="line">goods/---商品列表页</div><div class="line">header/---头部商家信息</div><div class="line">ratings/---商品评价页</div><div class="line">ratingselect/---商品评论筛选组件</div><div class="line">seller/---商家页</div><div class="line">shopcart/---购物车组件</div><div class="line">shplit/---分割线组件</div><div class="line">star/---评分组件</div></pre></td></tr></table></figure>
+<h3 id="遇到的问题汇总"><a href="#遇到的问题汇总" class="headerlink" title="遇到的问题汇总"></a>遇到的问题汇总</h3><h4 id="better-scroll组件的使用问题"><a href="#better-scroll组件的使用问题" class="headerlink" title="better-scroll组件的使用问题"></a>better-scroll组件的使用问题</h4><p>1、better-scroll在移动端使用，初始化时要设置click:true，否则移动端无法点击。<br>2、better-scroll使用时，需在代码中使用如下判断，否则PC端将产生两次点击事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!event._constructed) &#123;</div><div class="line">          <span class="keyword">return</span>;</div><div class="line">        &#125;;</div><div class="line">此处书写点击事件代码...</div></pre></td></tr></table></figure>
+<p>3、better-scroll的使用，必须保证子容器的高度或宽度超过父容器，否则无法滚动。如果子容器包含多个孙容器，可手动给子容器设置高度或宽度，使其能滚动（例如：项目中商家实景横向滚动效果，手动设置了容器的宽度，使其能滚动）。</p>
+<p>4、better-scroll对DOM的依赖很强，所以不需保证DOM已经渲染完毕，才能创建或刷新better-scroll实例。在Vue中，可以使用<code>$nextTick()</code>保证文档已经渲染完毕。</p>
+<h4 id="CSS样式问题"><a href="#CSS样式问题" class="headerlink" title="CSS样式问题"></a>CSS样式问题</h4><p>1、项目图标，可以使用icomoon.io将其转化为字体图标，这样可以保证icon的清晰度</p>
+<p>2、border-1px的实现，通过<code>@media</code>媒体查询，针对不同屏幕分辨率执行不同的缩放。即 <code>@media + scale</code></p>
+<blockquote>
+<p>公式：设备上像素 = 样式像素 * 设备像素比</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">屏幕宽度： 320px 480px 640px</div><div class="line">设备像素比： 1    1.5    2</div><div class="line"></div><div class="line">通过查询它的设备像素比 devicePixelRatio</div><div class="line"></div><div class="line">在设备像素比为1.5倍时, round(1px 1.5 / 0.7) = 1px </div><div class="line">在设备像素比为2倍时, round(1px 2 / 0.5) = 1px</div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// stylus语法</span></div><div class="line"><span class="function"><span class="title">border-1px</span><span class="params">(<span class="variable">$color</span>)</span></span></div><div class="line">    <span class="attribute">position</span>:relative</div><div class="line">    &amp;:after</div><div class="line">        <span class="attribute">content</span>:<span class="string">''</span></div><div class="line">        <span class="attribute">display</span>:block</div><div class="line">        <span class="attribute">position</span>:absolute</div><div class="line">        <span class="attribute">left</span>:<span class="number">0</span></div><div class="line">        <span class="attribute">bottom</span>:<span class="number">0</span></div><div class="line">        <span class="attribute">width</span>:<span class="number">100%</span></div><div class="line">        <span class="attribute">border</span>:<span class="number">1px</span> solid <span class="variable">$color</span></div><div class="line">@media(-webkit-min-device-pixel-ratio:<span class="number">1.5</span>),(min-device-pixel-ratio:<span class="number">1.5</span>)</div><div class="line">    <span class="selector-class">.border-1px</span></div><div class="line">        &amp;::after</div><div class="line">            -webkit-<span class="attribute">transform</span>:scaleY(<span class="number">0.7</span>)</div><div class="line">            <span class="attribute">transform</span>:scaleY(<span class="number">0.7</span>)</div><div class="line">@media(-webkit-min-device-pixel-ratio:<span class="number">2</span>),(min-device-pixel-ratio:<span class="number">2</span>)</div><div class="line">    <span class="selector-class">.border-1px</span></div><div class="line">        &amp;::after</div><div class="line">            -webkit-<span class="attribute">transform</span>:scaleY(<span class="number">0.5</span>)</div><div class="line">            <span class="attribute">transform</span>:scaleY(<span class="number">0.5</span>)</div></pre></td></tr></table></figure>
+<p>更多关于设备像素比devicePixelRatio：<a href="http://www.zhangxinxu.com/wordpress/2012/08/window-devicepixelratio/" target="_blank" rel="external">http://www.zhangxinxu.com/wordpress/2012/08/window-devicepixelratio/</a></p>
+<h4 id="Sticky-footer-布局"><a href="#Sticky-footer-布局" class="headerlink" title="Sticky-footer 布局"></a>Sticky-footer 布局</h4><p>header组件商家优惠中浮层采用了sticky footer布局，该布局的特点是，如果内容不足以充满整个屏幕，页脚也会贴在视窗底部，内容足够长时，页脚会被内容自动撑开。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">父容器:position:fixed;</div><div class="line">内容:padding-bottom:64px //距离底部的距离</div><div class="line">页脚相对定位:margin-top:-64px;</div></pre></td></tr></table></figure>
+<p>更多关于sticky-footer布局：<a href="https://aotu.io/notes/2017/04/13/Sticky-footer/index.html" target="_blank" rel="external">https://aotu.io/notes/2017/04/13/Sticky-footer/index.html</a></p>
+<h4 id="flex-布局"><a href="#flex-布局" class="headerlink" title="flex 布局"></a>flex 布局</h4><p>项目中多次使用flex布局，例如购物车组件的布局，左侧内容自适应，右侧宽度固定。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.content</span></div><div class="line">   <span class="selector-tag">display</span>: <span class="selector-tag">flex</span></div><div class="line"><span class="selector-class">.content-left</span></div><div class="line">   <span class="selector-tag">flex</span><span class="selector-pseudo">:1</span>   </div><div class="line"><span class="selector-class">.content-right</span></div><div class="line">   <span class="selector-tag">flex</span> 0 0 105<span class="selector-tag">px</span></div><div class="line"> <span class="selector-tag">width</span> 105<span class="selector-tag">px</span></div></pre></td></tr></table></figure>
+<p>更多关于flex布局：<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></p>
+<h4 id="padding-top-100-的用法"><a href="#padding-top-100-的用法" class="headerlink" title="padding-top = 100%的用法"></a>padding-top = 100%的用法</h4><p>为了防止图片加载过程中闪烁，且让图片的宽度自适应为屏幕宽度，高度与宽度相对（即正方形）。例如，商品详情页头图展示样式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.image-header</span></div><div class="line">   <span class="selector-tag">position</span>: <span class="selector-tag">relative</span></div><div class="line">   <span class="selector-tag">height</span>: 0</div><div class="line">   <span class="selector-tag">width</span>: 100% <span class="comment">/*宽度为100%*/</span></div><div class="line">   <span class="selector-tag">padding-top</span>: 100% <span class="comment">/*高度与高度相等*/</span></div></pre></td></tr></table></figure>
+<h4 id="背景模糊效果"><a href="#背景模糊效果" class="headerlink" title="背景模糊效果"></a>背景模糊效果</h4><p>本项目有两种不同的背景模糊，一个是<code>filter:blur(10px)</code>,另一个是<code>backdrop-filter:blur(10px)</code>。</p>
+<p>1、filter:blur(10px) 所有子元素也会模糊，包括文字，所以header组件中，商家背景图单独成一个容器，采用绝对布局，<code>z-index：-1</code>，这样可以避免背景模糊对其他元素的影响。另外，如果父容器下方有背景的阴影，设置<code>overflow:hidden</code>即可！</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bulletin-wrapper</span></div><div class="line">  <span class="selector-tag">overflow</span> <span class="selector-tag">hidden</span></div><div class="line"> <span class="selector-class">.background</span></div><div class="line">    <span class="selector-tag">position</span> <span class="selector-tag">absolute</span> <span class="comment">/*绝对定位*/</span></div><div class="line">    <span class="selector-tag">top</span> 0</div><div class="line">    <span class="selector-tag">left</span> 0</div><div class="line">    <span class="selector-tag">width</span> 100%</div><div class="line">    <span class="selector-tag">z-index</span> <span class="selector-tag">-1</span> <span class="comment">/*定位在后面*/</span></div><div class="line">    <span class="selector-tag">filter</span> <span class="selector-tag">blur</span>(10<span class="selector-tag">px</span>) <span class="comment">/*背景模糊*/</span></div></pre></td></tr></table></figure>
+<p>2、backdrop-filter:blur(10px) 只模糊背景，不模糊其子元素。但这个特性只在ios设备有效，Android不支持！</p>
+<h4 id="transition过渡"><a href="#transition过渡" class="headerlink" title="transition过渡"></a>transition过渡</h4><p>transition在Vue2.0以后升级为<transition>标签,用法也完全变了。Vue2.x中，transition的基本用法如下(Vue官网的例子，比较通俗易懂~~)</transition></p>
+<p><strong>html:</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"demo"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"show = !show"</span>&gt;</span></div><div class="line">    Toggle</div><div class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">transition</span> <span class="attr">name</span>=<span class="string">"fade"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"show"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">transition</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>javascript:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#demo'</span>,</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">show</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><strong>CSS:</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.fade-enter-active</span>, <span class="selector-class">.fade-leave-active</span> &#123;</div><div class="line">  <span class="attribute">transition</span>: opacity .<span class="number">5s</span></div><div class="line">&#125;</div><div class="line"><span class="selector-class">.fade-enter</span>, <span class="selector-class">.fade-leave-to</span> <span class="comment">/* .fade-leave-active in below version 2.1.8 */</span> &#123;</div><div class="line">  <span class="attribute">opacity</span>: <span class="number">0</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>更多关于<transition>组件，请看Vue2.x官网：<a href="https://cn.vuejs.org/v2/guide/transitions.html" target="_blank" rel="external">https://cn.vuejs.org/v2/guide/transitions.html</a></transition></p>
+<h4 id="seller（商品）组件的滚动问题"><a href="#seller（商品）组件的滚动问题" class="headerlink" title="seller（商品）组件的滚动问题"></a>seller（商品）组件的滚动问题</h4><p>1、初次打开seller页面，无法滚动<br><strong>问题分析：</strong>我们知道better-scroll插件是一个依赖DOM的，页面刚刚打开的时候，DOM没有渲染完毕，程序此时就调用better-scroll所以无法滚动。<br><strong>解决办法：</strong>在<code>mounted()</code>钩子函数（Vue1.x用的是<code>ready()</code>函数，）中创建/刷新better-scroll实例。</p>
+<p>2、点击其他页面，再次回到seller页面时，无法滚动<br><strong>问题分析：</strong>出现这个情况，是因为<code>mounted()</code>函数在整个生命周期中只会执行一次。<br><strong>解决办法：</strong>使用<code>watch()</code>方法，并配合<code>$nextTick()</code>。在watch方法中，监控<code>seller</code>数据的变化，在文档渲染完毕后，重新创建/刷新better-scroll实例。</p>
+<p>3、seller页面中，商家实景图片横向滚动问题<br><strong>问题分析：</strong>better-scroll插件要求子容器宽度/高度要大于父容器才会滚动。而ul列表默认不会被内容撑开，<br><strong>解决办法：</strong>给每个li设置<code>display:inline-block</code>，然后手动设置ul的宽度，（每张图片的宽度+margin-right的值）*图片数量-最后一个marin-right。同时，new better-scroll对象时，需要设置<code>scrollX: true,eventPassthrough: &#39;vertical&#39;</code>(具体看下方代码)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// watch（）函数</span></div><div class="line">watch: &#123;</div><div class="line"> <span class="string">'seller'</span> () &#123; <span class="comment">//seller是数据对象，单引号可去掉</span></div><div class="line">     <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">     <span class="keyword">this</span>._initScroll();</div><div class="line">     <span class="keyword">this</span>._initPics();</div><div class="line">   &#125;);</div><div class="line"> &#125;</div><div class="line">&#125;,</div><div class="line"><span class="comment">// methods 方法</span></div><div class="line">methods: &#123;</div><div class="line">  <span class="comment">// seller（商品）组件滚动</span></div><div class="line">  _initScroll () &#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.scroll) &#123;</div><div class="line">      <span class="keyword">this</span>.scroll = <span class="keyword">new</span> BScroll(<span class="keyword">this</span>.$refs.seller, &#123;</div><div class="line">        <span class="attr">click</span>: <span class="literal">true</span></div><div class="line">    &#125;);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">this</span>.scroll.refresh();</div><div class="line">    &#125;,</div><div class="line">  <span class="comment">// 商家实景滚动，注意：并不是在同一个容器中设置宽度和设置滚动</span></div><div class="line">  _initPics () &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.seller.pics) &#123;</div><div class="line">    <span class="keyword">let</span> picList = <span class="keyword">this</span>.$refs.picList;</div><div class="line">    <span class="keyword">let</span> picWidth = <span class="number">120</span>;</div><div class="line">    <span class="keyword">let</span> margin = <span class="number">6</span>;</div><div class="line">    <span class="keyword">let</span> picNum = <span class="keyword">this</span>.$refs.picList.getElementsByClassName(<span class="string">'pic-item'</span>).length;</div><div class="line">     <span class="comment">// 设置picList（子组件）的宽度</span></div><div class="line">     picList.style.width = (picWidth + margin) * picNum - margin + <span class="string">'px'</span>;</div><div class="line">     <span class="comment">// 注意此处 $nextTick() 的用法，设置了宽度浏览器要重新渲染</span></div><div class="line">     <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">       <span class="keyword">if</span> (!<span class="keyword">this</span>.picScroll) &#123;</div><div class="line">         <span class="comment">// 设置picWrapper（父组件）滚动</span></div><div class="line">         <span class="keyword">this</span>.picScroll = <span class="keyword">new</span> BScroll(<span class="keyword">this</span>.$refs.picWrapper, &#123;</div><div class="line">           <span class="comment">// 设置为横向滚动</span></div><div class="line">           scrollX: <span class="literal">true</span>,</div><div class="line">           <span class="attr">eventPassthrough</span>: <span class="string">'vertical'</span></div><div class="line">         &#125;);</div><div class="line">       &#125; <span class="keyword">else</span> &#123;</div><div class="line">         <span class="keyword">this</span>.picScroll.refresh();</div><div class="line">       &#125;</div><div class="line">     &#125;);</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="window-localStorage的用法"><a href="#window-localStorage的用法" class="headerlink" title="window.localStorage的用法"></a>window.localStorage的用法</h4><p>此项目，将localStorage封装成一个通用的方法，并保存在<code>src/common/js/store.js</code>中。收藏商家功能，体现了localStorage的用法。</p>
+<p><strong>App.vue动态给seller绑定id:</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">data () &#123;</div><div class="line"> <span class="keyword">return</span> &#123;</div><div class="line">   <span class="attr">seller</span>: &#123;</div><div class="line">     <span class="comment">// 创建自动执行函数，动态添加商家ID</span></div><div class="line">     id: <span class="function">(<span class="params">(</span>) =&gt;</span> &#123;</div><div class="line">       <span class="keyword">let</span> queryParam = urlParse();</div><div class="line">       <span class="keyword">return</span> queryParam.id;</div><div class="line">     &#125;)()</div><div class="line">   &#125;</div><div class="line"> &#125;;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p><strong>seller组件，使用loadFormLocal()加载本地内容:</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">data () &#123;</div><div class="line"> <span class="keyword">return</span> &#123;</div><div class="line">   <span class="attr">favoriate</span>: <span class="function">(<span class="params">(</span>) =&gt;</span> &#123;</div><div class="line">     <span class="keyword">return</span> loadFormLocal(<span class="keyword">this</span>.seller.id, <span class="string">'favoriate'</span>, <span class="literal">false</span>);</div><div class="line">   &#125;)()</div><div class="line"> &#125;;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p><strong>seller组件，使用saveToLocal（）把内容存储本地</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">toggleFavoriate (event) &#123;</div><div class="line">  <span class="keyword">if</span> (event._constructed) &#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">this</span>.favoriate = !<span class="keyword">this</span>.favoriate;</div><div class="line">  saveToLocal(<span class="keyword">this</span>.seller.id, <span class="string">'favoriate'</span>, <span class="keyword">this</span>.favoriate);</div><div class="line"> &#125;,</div></pre></td></tr></table></figure>
+<p><strong>store.js源码</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 通用localStorage 存数据方法</span></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">saveToLocal</span> (<span class="params">id, key, value</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (!<span class="built_in">window</span>.localStorage) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">let</span> store = <span class="built_in">window</span>.localStorage.__store__;</div><div class="line">    <span class="keyword">if</span> (!store) &#123;</div><div class="line">      <span class="comment">// 如果store不存在，先创建</span></div><div class="line">      store = &#123;&#125;;</div><div class="line">      store[id] = &#123;&#125;;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      store = <span class="built_in">JSON</span>.parse(store);</div><div class="line">      <span class="keyword">if</span> (!store[id]) &#123;</div><div class="line">        store[id] = &#123;&#125;;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    store[id][key] = value;</div><div class="line">    localStorage.__store__ = <span class="built_in">JSON</span>.stringify(store);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 取数据方法</span></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">loadFormLocal</span> (<span class="params">id, key, def</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (!<span class="built_in">window</span>.localStorage) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">let</span> store = <span class="built_in">window</span>.localStorage.__store__;</div><div class="line">    <span class="keyword">if</span> (!store) &#123;</div><div class="line">      <span class="keyword">return</span> def;</div><div class="line">    &#125;</div><div class="line">    store = <span class="built_in">JSON</span>.parse(store)[id];</div><div class="line">    <span class="keyword">if</span> (!store) &#123;</div><div class="line">      <span class="keyword">return</span> def;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">let</span> ret = store[key];</div><div class="line">    <span class="keyword">return</span> ret || def;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="解析地址栏中的url，并返回数据对象"><a href="#解析地址栏中的url，并返回数据对象" class="headerlink" title="解析地址栏中的url，并返回数据对象"></a>解析地址栏中的url，并返回数据对象</h4><p>使用window.localStorage.search可以获取地址栏中问号后面的数据。本项目，我们把用于解析url的函数封装在一个<code>util.js</code>函数中。供app.vue动态给seller数据对象绑定商家的id，该函数源码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * 解析url参数</div><div class="line"> * @example ?id=12345&amp;a=b</div><div class="line"> * @return Object &#123;id:12345,a:b&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">urlParse</span> (<span class="params"></span>) </span>&#123;</div><div class="line">   <span class="keyword">let</span> url = <span class="built_in">window</span>.location.search;</div><div class="line">   <span class="keyword">let</span> obj = &#123;&#125;;</div><div class="line">   <span class="keyword">let</span> reg = <span class="regexp">/[?&amp;][^?&amp;]+=[^?&amp;]+/g</span>;</div><div class="line">   <span class="keyword">let</span> arr = url.match(reg);</div><div class="line">   <span class="comment">// ['?id=12345','&amp;a=b']</span></div><div class="line">   <span class="keyword">if</span> (arr) &#123;</div><div class="line">     arr.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</div><div class="line">       <span class="keyword">let</span> tempArr = item.substring(<span class="number">1</span>).split(<span class="string">'='</span>);</div><div class="line">       <span class="keyword">let</span> key = <span class="built_in">decodeURIComponent</span>(tempArr[<span class="number">0</span>]);</div><div class="line">       <span class="keyword">let</span> val = <span class="built_in">decodeURIComponent</span>(tempArr[<span class="number">1</span>]);</div><div class="line">       obj[key] = val;</div><div class="line">     &#125;);</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此外，我们需要将得到的id和a带到数据中，实际上在获取数据的时候，并没有带着id和a，这时就要用到es6语法中Object.assign(),官方解释为：<em>可以把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。</em></p>
+<p><strong>在app.vue组件创建时，使用Object.assign()将id和a属性帮绑定到seller中:</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">created () &#123;</div><div class="line">      <span class="keyword">this</span>.$http.get(<span class="string">'/api/seller?id='</span> + <span class="keyword">this</span>.seller.id).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</div><div class="line">        response = response.body;</div><div class="line">        <span class="keyword">if</span> (response.errno === ERR_OK) &#123;</div><div class="line">          <span class="comment">//即将vm.seller属性和请求返回数据对象合并到空对象，然后赋值给vm.seller。</span></div><div class="line">          <span class="keyword">this</span>.seller = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.seller, response.data);</div><div class="line">        &#125;</div><div class="line">      &#125;);</div><div class="line">    &#125;,</div></pre></td></tr></table></figure>
+<h4 id="使用keepalive属性"><a href="#使用keepalive属性" class="headerlink" title="使用keepalive属性"></a>使用keepalive属性</h4><p>商品、评论、商家三个组件之间切换时，数据会被重新渲染，这不符合预期。解决办法是：在<rooter-view>外层使用<code>keepalive</code>。</rooter-view></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">router-view</span> <span class="attr">:seller</span>=<span class="string">"seller"</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="vue-router2的使用"><a href="#vue-router2的使用" class="headerlink" title="vue-router2的使用"></a>vue-router2的使用</h4><p>vue-router2 的用法与第一版有所变化,下方html代码中，注释部分是第一版的用法。</p>
+<p><strong>html代码：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tab border-1px"</span>&gt;</span></div><div class="line"></div><div class="line"> <span class="comment">&lt;!--vue-router1.x的用法--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;div class="tab-item"&gt;--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;a v-link :to="&#123;path:'/goods'&#125;"&gt;商品&lt;/a&gt;--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;/div&gt;--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;div class="tab-item"&gt;--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;a v-link to="&#123;path:'/ratings'&#125;"&gt;评论&lt;/a&gt;--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;/div&gt;--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;div class="tab-item"&gt;--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;a v-link :to="&#123;path:'/seller'&#125;"&gt;商家&lt;/a&gt;--&gt;</span></div><div class="line"> <span class="comment">&lt;!--&lt;/div&gt;--&gt;</span></div><div class="line"> </div><div class="line"> <span class="comment">&lt;!--导航--&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">class</span>=<span class="string">"tab-item"</span> <span class="attr">to</span>=<span class="string">"/goods"</span>&gt;</span>商品<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">class</span>=<span class="string">"tab-item"</span> <span class="attr">to</span>=<span class="string">"/ratings"</span>&gt;</span>评价<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">class</span>=<span class="string">"tab-item"</span> <span class="attr">to</span>=<span class="string">"/seller"</span>&gt;</span>商家<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--出口路由，用于承载路由指向的组件--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">router-view</span> <span class="attr">:seller</span>=<span class="string">"seller"</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>路由配置：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</div><div class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span>;</div><div class="line"></div><div class="line">Vue.use(VueRouter);</div><div class="line"></div><div class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</div><div class="line">    <span class="attr">linkActiveClass</span>: <span class="string">'active'</span>, <span class="comment">// 配置激活时候的类名</span></div><div class="line">    routes: [</div><div class="line">      &#123;<span class="attr">path</span>: <span class="string">'/goods'</span>, <span class="attr">component</span>: goods&#125;,</div><div class="line">      &#123;<span class="attr">path</span>: <span class="string">'/ratings'</span>, <span class="attr">component</span>: ratings&#125;,</div><div class="line">      &#123;<span class="attr">path</span>: <span class="string">'/seller'</span>, <span class="attr">component</span>: seller&#125;</div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">);</div><div class="line"></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="comment">// el: '#app',</span></div><div class="line">  router: router,</div><div class="line">  <span class="attr">template</span>: <span class="string">'&lt;App/&gt;'</span>,</div><div class="line">  <span class="attr">components</span>: &#123; App &#125;</div><div class="line">&#125;).$mount(<span class="string">'#app'</span>);</div></pre></td></tr></table></figure>
+<h4 id="vue-resource的使用"><a href="#vue-resource的使用" class="headerlink" title="vue-resource的使用"></a>vue-resource的使用</h4><p>这个插件vue官方出的插件，这个插件的用法与vue-router的用法类似。其基本用法是使用Vue的实例调用get()方法获取数据,使用then()方法处理数据。</p>
+<p><strong>基本用法：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">this.$http.get(url).then((回调数据)=&gt;&#123;处理回调数据&#125;)</div></pre></td></tr></table></figure>
+<p><strong>举个栗子：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 导入vue-resource</span></div><div class="line"><span class="keyword">import</span> VueResource <span class="keyword">from</span> <span class="string">'vue-resource'</span>;</div><div class="line"><span class="comment">// 使用use（）来函数调用vue-resource的实例</span></div><div class="line">Vue.use(VueResource);</div><div class="line"></div><div class="line"><span class="comment">// 然后就可以使用了（代码来自APP.vue，仅供演示）</span></div><div class="line">created () &#123;</div><div class="line">  <span class="keyword">this</span>.$http.get(<span class="string">'/api/seller?id='</span> + <span class="keyword">this</span>.seller.id).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</div><div class="line">    response = response.body;</div><div class="line">    <span class="keyword">if</span> (response.errno === ERR_OK) &#123;</div><div class="line">      <span class="keyword">this</span>.seller = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.seller, response.data);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<h4 id="Vue2-x组件间的通信问题"><a href="#Vue2-x组件间的通信问题" class="headerlink" title="Vue2.x组件间的通信问题"></a>Vue2.x组件间的通信问题</h4><p>这是另一个话题了,打算另外开篇,感觉给自己挖了一个坑..</p>
+<p>—2017-7-26 23:32—</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/tags/Vue2-x/" rel="tag"># Vue2.x</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/25/使用jsonP实现豆瓣图书的搜索/" rel="next" title="使用jsonP实现豆瓣图书的搜索">
+                <i class="fa fa-chevron-left"></i> 使用jsonP实现豆瓣图书的搜索
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="linlif" />
+          <p class="site-author-name" itemprop="name">linlif</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累知识，记录点滴！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/linlif" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/58cadd85c47b" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现的功能："><span class="nav-text">实现的功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目结构"><span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目组件分析"><span class="nav-text">项目组件分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的问题汇总"><span class="nav-text">遇到的问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#better-scroll组件的使用问题"><span class="nav-text">better-scroll组件的使用问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS样式问题"><span class="nav-text">CSS样式问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sticky-footer-布局"><span class="nav-text">Sticky-footer 布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flex-布局"><span class="nav-text">flex 布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#padding-top-100-的用法"><span class="nav-text">padding-top = 100%的用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景模糊效果"><span class="nav-text">背景模糊效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#transition过渡"><span class="nav-text">transition过渡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#seller（商品）组件的滚动问题"><span class="nav-text">seller（商品）组件的滚动问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#window-localStorage的用法"><span class="nav-text">window.localStorage的用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析地址栏中的url，并返回数据对象"><span class="nav-text">解析地址栏中的url，并返回数据对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用keepalive属性"><span class="nav-text">使用keepalive属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue-router2的使用"><span class="nav-text">vue-router2的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue-resource的使用"><span class="nav-text">vue-resource的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue2-x组件间的通信问题"><span class="nav-text">Vue2.x组件间的通信问题</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">linlif</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
