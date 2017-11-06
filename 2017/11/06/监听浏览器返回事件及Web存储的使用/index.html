@@ -1,0 +1,790 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="sessionStorage,监听浏览器回退事件" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1、浏览器返回（上一页）事件的监听及使用技巧分享基本思路是，（1）利用History对象的history.pushState方法往浏览器历史记录里添加一条记录。（2）监听history.popstate事件，如果有哈希标志（即“#”号，说明是当前页）（3）继续判断是否为空，如果为空就说明在当前页，因为这里window.history.pushState(&amp;#39;forward&amp;#39;, nul">
+<meta name="keywords" content="sessionStorage,监听浏览器回退事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="监听浏览器返回事件及Web存储的使用">
+<meta property="og:url" content="https://linlif.github.io/2017/11/06/监听浏览器返回事件及Web存储的使用/index.html">
+<meta property="og:site_name" content="linlif-blog">
+<meta property="og:description" content="1、浏览器返回（上一页）事件的监听及使用技巧分享基本思路是，（1）利用History对象的history.pushState方法往浏览器历史记录里添加一条记录。（2）监听history.popstate事件，如果有哈希标志（即“#”号，说明是当前页）（3）继续判断是否为空，如果为空就说明在当前页，因为这里window.history.pushState(&amp;#39;forward&amp;#39;, nul">
+<meta property="og:updated_time" content="2017-11-06T13:49:13.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="监听浏览器返回事件及Web存储的使用">
+<meta name="twitter:description" content="1、浏览器返回（上一页）事件的监听及使用技巧分享基本思路是，（1）利用History对象的history.pushState方法往浏览器历史记录里添加一条记录。（2）监听history.popstate事件，如果有哈希标志（即“#”号，说明是当前页）（3）继续判断是否为空，如果为空就说明在当前页，因为这里window.history.pushState(&amp;#39;forward&amp;#39;, nul">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://linlif.github.io/2017/11/06/监听浏览器返回事件及Web存储的使用/"/>
+
+
+
+
+
+  <title>监听浏览器返回事件及Web存储的使用 | linlif-blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f8eb2e0a2f9a4254c8e9cb312618c71";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linlif-blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个沉淀知识的地方！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://linlif.github.io/2017/11/06/监听浏览器返回事件及Web存储的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="linlif">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linlif-blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">监听浏览器返回事件及Web存储的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T21:43:54+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1、浏览器返回（上一页）事件的监听及使用技巧分享"><a href="#1、浏览器返回（上一页）事件的监听及使用技巧分享" class="headerlink" title="1、浏览器返回（上一页）事件的监听及使用技巧分享"></a>1、浏览器返回（上一页）事件的监听及使用技巧分享</h4><p>基本思路是，<br>（1）利用History对象的<code>history.pushState</code>方法往浏览器历史记录里添加一条记录。<br>（2）监听<code>history.popstate</code>事件，如果有哈希标志（即“#”号，说明是当前页）<br>（3）继续判断是否为空，如果为空就说明在当前页，因为这里<code>window.history.pushState(&#39;forward&#39;, null, &#39;#&#39;);</code>最后一个参数只传递了一个“#”号。<br>（4）经过(2)(3)的判断，即可判断是当前页。<br>（5）在判断内写要做的事情，我这里对sessionStorage的数据进行清除,并技巧性的使用<code>history.back();</code><strong>可以解决需要多点击一次才能回退到上一页的问题</strong>（注释掉这一句即可看到效果，请自行体验）。</p>
+<p><em>注：点击前进后退、使用go()、forward()、back()方法都会触发<code>history.popstate</code>事件</em></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 监听浏览器回退事件</span></div><div class="line">backListen: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//监听hashchange事件</span></div><div class="line">    <span class="comment">// window.addEventListener('hashchange', function() &#123;</span></div><div class="line"></div><div class="line">    <span class="comment">//     //为当前导航页附加一个tag</span></div><div class="line">    <span class="comment">//     this.history.replaceState('hasHash', '', '');</span></div><div class="line"></div><div class="line">    <span class="comment">// &#125;, false);</span></div><div class="line"></div><div class="line">    <span class="comment">// window.addEventListener('popstate', function(e) &#123;</span></div><div class="line"></div><div class="line">    <span class="comment">//     if (e.state) &#123;</span></div><div class="line">    <span class="comment">//         //侦测是用户触发的后退操作, dosomething</span></div><div class="line">    <span class="comment">//         //这里刷新当前url</span></div><div class="line">    <span class="comment">//         alert('点击了回退按钮！');</span></div><div class="line">    <span class="comment">//         this.location.reload();</span></div><div class="line">    <span class="comment">//     &#125;</span></div><div class="line">    <span class="comment">// &#125;, false);</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.history &amp;&amp; <span class="built_in">window</span>.history.pushState) &#123;</div><div class="line">        $(<span class="built_in">window</span>).on(<span class="string">'popstate'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> hashLocation = location.hash;</div><div class="line">            <span class="keyword">var</span> hashSplit = hashLocation.split(<span class="string">"#!/"</span>);</div><div class="line">            <span class="keyword">var</span> hashName = hashSplit[<span class="number">1</span>];</div><div class="line">            <span class="comment">// 回退到上一页（没有哈希值），借助这个中间页来做操作</span></div><div class="line">            <span class="keyword">if</span> (hashName !== <span class="string">''</span>) &#123;</div><div class="line">                <span class="keyword">var</span> hash = <span class="built_in">window</span>.location.hash;</div><div class="line">                <span class="keyword">if</span> (hash === <span class="string">''</span>) &#123;</div><div class="line">                    <span class="comment">// alert('点击了后退按钮');</span></div><div class="line">                    sessionStorage.removeItem(<span class="string">"flag"</span>);</div><div class="line">                    <span class="comment">// 强行回退一步，就不用多点一次了😎</span></div><div class="line">                    history.back();</div><div class="line">                    <span class="built_in">console</span>.log(sessionStorage.getItem(<span class="string">"flag"</span>));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        <span class="comment">// 将含有哈希值的页面，强行插入浏览器历史记录中</span></div><div class="line">        <span class="built_in">window</span>.history.pushState(<span class="string">'forward'</span>, <span class="literal">null</span>, <span class="string">'#'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<h4 id="2、HTML5新技术sessionStorage和localStorage的运用"><a href="#2、HTML5新技术sessionStorage和localStorage的运用" class="headerlink" title="2、HTML5新技术sessionStorage和localStorage的运用"></a>2、HTML5新技术sessionStorage和localStorage的运用</h4><p>sessionStorage和localStorage的使用方法是一致的，主要区别是存储的有效期问题。sessionStorage是会话存储，关闭标签页或浏览器数据会自动清除（刷新页面不会清除数据，可以用于解决跨页面数据传递）；localStorage是永久存储，除非手动删除或调用了删除数据的方法，否则会永久存储在用户的设备中。</p>
+<p>以下是两个函数，实现了sessionStorage的存储和读取，localStorage的用法是一样的，直接把“sessionStorage”替换成“localStorage”即可。值得注意的是，这两种存储方式，只能存放字符串格式的数据，如果是json（或数组等），存储时必须调用<code>JSON.stringify()</code>进行字符串转换，读取后可以使用<code>JSON.parse()</code>将字符串转换成json数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 存储数据到sessionStorage    </span></div><div class="line">saveToLocal: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 对象转成字符串</span></div><div class="line">    <span class="keyword">var</span> saveLocal = <span class="built_in">JSON</span>.stringify(schemesDataTemp);</div><div class="line">    <span class="comment">// 存入sessionStorage</span></div><div class="line">    sessionStorage.setItem(<span class="string">"schemeData"</span>, saveLocal);</div><div class="line">    <span class="built_in">console</span>.log(schemesDataTemp);</div><div class="line">&#125;,</div><div class="line"></div><div class="line"><span class="comment">// 从sessionStorage获取数据 </span></div><div class="line">getFromLocal: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 从sessionStorage读取数据，并转化成json</span></div><div class="line">    <span class="keyword">var</span> localData = <span class="built_in">JSON</span>.parse(sessionStorage.getItem(<span class="string">"schemeData"</span>));</div><div class="line">    <span class="keyword">return</span> localData;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<h4 id="2、Web存储的使用样例-摘自网络"><a href="#2、Web存储的使用样例-摘自网络" class="headerlink" title="2、Web存储的使用样例(摘自网络)"></a>2、Web存储的使用样例(摘自网络)</h4><p>下面以本地存储（localStorage）为例，会话存储改成 sessionStorage 对象即可。</p>
+<p>#####（1）文本数据的保存和读取</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">localStorage.setItem(<span class="string">"user_name"</span>,<span class="string">"hangge.com"</span>);</div><div class="line"> </div><div class="line"><span class="keyword">var</span> userName = localStorage.getItem(<span class="string">"user_name"</span>);</div></pre></td></tr></table></figure>
+<p>#####（2）数值的保存和读取</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">localStorage.setItem(<span class="string">"user_age"</span>,<span class="number">100</span>);</div><div class="line"> </div><div class="line"><span class="keyword">var</span> userAge = <span class="built_in">Number</span>(localStorage.getItem(<span class="string">"user_age"</span>));</div></pre></td></tr></table></figure>
+<h5 id="3-日期的保存和读取"><a href="#3-日期的保存和读取" class="headerlink" title="(3)日期的保存和读取"></a>(3)日期的保存和读取</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建日期对象</span></div><div class="line"><span class="keyword">var</span> today = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line"> </div><div class="line"><span class="comment">//按照YYY/MM/DD的标准格式把日期转换成文本字符串，然后保存为文本</span></div><div class="line"><span class="keyword">var</span> todayString = today.getFullYear() + <span class="string">"/"</span> + today.getMonth() + <span class="string">"/"</span> + today.getDate();</div><div class="line">localStorage.setItem(<span class="string">"session_started"</span>, todayString);</div><div class="line"> </div><div class="line"><span class="comment">//取得日期文本，并基于该文本创建新的日期对象</span></div><div class="line"><span class="keyword">var</span> newToday = <span class="keyword">new</span> <span class="built_in">Date</span>(localStorage.getItem(<span class="string">"session_started"</span>));</div><div class="line">alert(newToday.getFullYear());</div></pre></td></tr></table></figure>
+<h5 id="4-自定义对象的保存和读取"><a href="#4-自定义对象的保存和读取" class="headerlink" title="(4)自定义对象的保存和读取"></a>(4)自定义对象的保存和读取</h5><p>对象的保存和读取可以通过JSON编码转换来实现。<br><strong>JSON.stringify()：</strong>把任何对象连同其数据转换为文本形似。<br><strong>JSON.parse()：</strong>把文本转换回对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//自定义一个User对象</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">n, a, t</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = n;</div><div class="line">    <span class="keyword">this</span>.age = a;</div><div class="line">    <span class="keyword">this</span>.telephone = t;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//创建User对象</span></div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">"hangge"</span>, <span class="number">100</span>, <span class="string">"123456"</span>);</div><div class="line"><span class="comment">//将其保存为方便的JSON格式</span></div><div class="line">sessionStorage.setItem(<span class="string">"user"</span>, <span class="built_in">JSON</span>.stringify(user));</div><div class="line"> </div><div class="line"><span class="comment">//跳转页面</span></div><div class="line"><span class="comment">//window.location = "hangge.html";</span></div><div class="line"> </div><div class="line"><span class="comment">//将JSON文本转回原来的对象</span></div><div class="line"><span class="keyword">var</span> user2 = <span class="built_in">JSON</span>.parse(sessionStorage.getItem(<span class="string">"user"</span>));</div><div class="line">alert(user2.name);</div></pre></td></tr></table></figure>
+<h5 id="（5）检测某个键的值是否为空，可以直接测试是否等于null"><a href="#（5）检测某个键的值是否为空，可以直接测试是否等于null" class="headerlink" title="（5）检测某个键的值是否为空，可以直接测试是否等于null"></a>（5）检测某个键的值是否为空，可以直接测试是否等于null</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(localStorage.getItem(<span class="string">"user_name"</span>) == <span class="literal">null</span>)&#123;</div><div class="line">    alert(<span class="string">"用户名不存在！"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>#####（6）删除数据项</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">localStorage.removeItem(<span class="string">"user_name"</span>);</div></pre></td></tr></table></figure>
+<h5 id="（7）清除所有数据"><a href="#（7）清除所有数据" class="headerlink" title="（7）清除所有数据"></a>（7）清除所有数据</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">localStorage.clear();</div></pre></td></tr></table></figure>
+<h5 id="（8）查找所有的数据项"><a href="#（8）查找所有的数据项" class="headerlink" title="（8）查找所有的数据项"></a>（8）查找所有的数据项</h5><p>不知道键名，可以使用 key() 方法从本地或者会话存储中取得所有的数据项。下面样例，点击按钮后就会列出所有本地存储中的数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//遍历所有数据项</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;localStorage.length; i++) &#123;</div><div class="line">    <span class="comment">//取得当前位置数据项的键</span></div><div class="line">    <span class="keyword">var</span> key = localStorage.key(i);</div><div class="line">    <span class="comment">//取得以该键保存的数据值</span></div><div class="line">    <span class="keyword">var</span> item = localStorage.getItem(key);</div><div class="line"> </div><div class="line">    <span class="comment">//用以上数据创建一个列表项添加到页面中</span></div><div class="line">    <span class="keyword">var</span> newItem = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</div><div class="line">    newItem.innerHTML = key + <span class="string">": "</span> + item;</div><div class="line">    itemList.appendChild(newItem);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h5 id="9-响应存储变化"><a href="#9-响应存储变化" class="headerlink" title="(9)响应存储变化"></a>(9)响应存储变化</h5><p>Web存储也为我们提供了在不同浏览器窗口间通信的机制。也就是说在本地存储或会话存储发生变化时，其他查看同一页面或者同一站点中其他页面的窗口就会触发 window.onStorage 事件。<br>这里说的存储变化，指的是向存储中<em>添加新数据项</em>，<em>修改既有数据项</em>，<em>删除数据项</em>或者<em>清除所有数据</em>。而对存储不产生任何影响的操作（用既有键名保存相同的值，或者清除原本就是空的存储空间），不会引发 onStorage 事件。</p>
+<p>page1核心代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在本地存储中保存数据项</span></div><div class="line"><span class="comment">// (如果同名键已经存在，则用新值替换旧值)</span></div><div class="line">localStorage.setItem(key, item);</div></pre></td></tr></table></figure>
+<p>page2核心代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    alert(<span class="number">1</span>);</div><div class="line">  <span class="comment">//给window.onStorage事件添加一个处理函数</span></div><div class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">"storage"</span>, storageChanged, <span class="literal">false</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web存储/" rel="tag"># web存储</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/26/Vue2-x重构饿了么App项目总结/" rel="next" title="Vue2.x重构饿了么App项目总结">
+                <i class="fa fa-chevron-left"></i> Vue2.x重构饿了么App项目总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="linlif" />
+          <p class="site-author-name" itemprop="name">linlif</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累知识，记录点滴！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/linlif" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/58cadd85c47b" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、浏览器返回（上一页）事件的监听及使用技巧分享"><span class="nav-text">1、浏览器返回（上一页）事件的监听及使用技巧分享</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、HTML5新技术sessionStorage和localStorage的运用"><span class="nav-text">2、HTML5新技术sessionStorage和localStorage的运用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Web存储的使用样例-摘自网络"><span class="nav-text">2、Web存储的使用样例(摘自网络)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-日期的保存和读取"><span class="nav-text">(3)日期的保存和读取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-自定义对象的保存和读取"><span class="nav-text">(4)自定义对象的保存和读取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（5）检测某个键的值是否为空，可以直接测试是否等于null"><span class="nav-text">（5）检测某个键的值是否为空，可以直接测试是否等于null</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（7）清除所有数据"><span class="nav-text">（7）清除所有数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（8）查找所有的数据项"><span class="nav-text">（8）查找所有的数据项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-响应存储变化"><span class="nav-text">(9)响应存储变化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">linlif</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
