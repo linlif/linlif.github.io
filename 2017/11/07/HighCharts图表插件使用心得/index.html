@@ -1,0 +1,778 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HighCharts插件用法" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1、商品走势图，HighCharts插件的使用心得 官网中文教程：https://www.hcharts.cn/docs 官方中文API文档：https://api.hcharts.cn/highcharts  1）引入highchart.js文件，创建表格父容器 12345678910&amp;lt;!--引入相关文件--&amp;gt;&amp;lt;head&amp;gt;&amp;lt;!-- Highcharts 价格走势图">
+<meta name="keywords" content="HighCharts插件用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HighCharts图表插件使用心得">
+<meta property="og:url" content="https://linlif.github.io/2017/11/07/HighCharts图表插件使用心得/index.html">
+<meta property="og:site_name" content="linlif-blog">
+<meta property="og:description" content="1、商品走势图，HighCharts插件的使用心得 官网中文教程：https://www.hcharts.cn/docs 官方中文API文档：https://api.hcharts.cn/highcharts  1）引入highchart.js文件，创建表格父容器 12345678910&amp;lt;!--引入相关文件--&amp;gt;&amp;lt;head&amp;gt;&amp;lt;!-- Highcharts 价格走势图">
+<meta property="og:updated_time" content="2017-11-07T13:50:15.596Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HighCharts图表插件使用心得">
+<meta name="twitter:description" content="1、商品走势图，HighCharts插件的使用心得 官网中文教程：https://www.hcharts.cn/docs 官方中文API文档：https://api.hcharts.cn/highcharts  1）引入highchart.js文件，创建表格父容器 12345678910&amp;lt;!--引入相关文件--&amp;gt;&amp;lt;head&amp;gt;&amp;lt;!-- Highcharts 价格走势图">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://linlif.github.io/2017/11/07/HighCharts图表插件使用心得/"/>
+
+
+
+
+
+  <title>HighCharts图表插件使用心得 | linlif-blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f8eb2e0a2f9a4254c8e9cb312618c71";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linlif-blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个沉淀知识的地方！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://linlif.github.io/2017/11/07/HighCharts图表插件使用心得/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="linlif">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linlif-blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HighCharts图表插件使用心得</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-07T21:25:49+08:00">
+                2017-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1、商品走势图，HighCharts插件的使用心得"><a href="#1、商品走势图，HighCharts插件的使用心得" class="headerlink" title="1、商品走势图，HighCharts插件的使用心得"></a>1、商品走势图，HighCharts插件的使用心得</h4><ul>
+<li>官网中文教程：<a href="https://www.hcharts.cn/docs" target="_blank" rel="external">https://www.hcharts.cn/docs</a></li>
+<li>官方中文API文档：<a href="https://api.hcharts.cn/highcharts" target="_blank" rel="external">https://api.hcharts.cn/highcharts</a></li>
+</ul>
+<h5 id="1）引入highchart-js文件，创建表格父容器"><a href="#1）引入highchart-js文件，创建表格父容器" class="headerlink" title="1）引入highchart.js文件，创建表格父容器"></a>1）引入highchart.js文件，创建表格父容器</h5> <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--引入相关文件--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- Highcharts 价格走势图 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.hcharts.cn/highcharts/highcharts.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 没有数据时，显示暂无数据或英文的暂无数据 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.hcharts.cn/highcharts/modules/no-data-to-display.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--创建一个id为container的div，并制定图表的最小宽度--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span> <span class="attr">style</span>=<span class="string">"min-width:400px;height:300px"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h5 id="2）用对象的方式配置options，首先是基本的样式配置"><a href="#2）用对象的方式配置options，首先是基本的样式配置" class="headerlink" title="2）用对象的方式配置options，首先是基本的样式配置"></a>2）用对象的方式配置options，首先是基本的样式配置</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 图表基础（通用）配置</span></div><div class="line"><span class="keyword">var</span> options = &#123;</div><div class="line">    <span class="attr">credits</span>: &#123;</div><div class="line">        <span class="attr">enabled</span>: <span class="literal">false</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// 没有数据时，显示的内容，该功能需要引入特定js文件，具体看html页面底部</span></div><div class="line">    lang: &#123;</div><div class="line">        <span class="attr">noData</span>: <span class="string">'暂无数据!'</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">chart</span>: &#123;</div><div class="line">        <span class="attr">renderTo</span>: <span class="string">'container'</span>, <span class="comment">// 图表容器</span></div><div class="line">        type: <span class="string">'spline'</span>,</div><div class="line">        <span class="comment">// 指定内边距，下面的四个配置可以用 spacing: [10, 10, 15, 10] 来代替</span></div><div class="line">        spacingBottom: <span class="number">15</span>,</div><div class="line">        <span class="attr">spacingTop</span>: <span class="number">10</span>,</div><div class="line">        <span class="attr">spacingLeft</span>: <span class="number">10</span>,</div><div class="line">        <span class="attr">spacingRight</span>: <span class="number">10</span>,</div><div class="line">        <span class="attr">margin</span>: <span class="number">50</span>, <span class="comment">// 指定外边距</span></div><div class="line">        width: <span class="number">800</span>, <span class="comment">// 指定图表宽度</span></div><div class="line">        height: <span class="number">300</span> <span class="comment">// 指定图表高度</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// 表格的标题</span></div><div class="line">    title: &#123;</div><div class="line">        <span class="attr">text</span>: <span class="string">''</span>,</div><div class="line">        <span class="attr">x</span>: <span class="number">-20</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// 表格的子标题    </span></div><div class="line">    subtitle: &#123;</div><div class="line">        <span class="attr">text</span>: <span class="string">''</span>,</div><div class="line">        <span class="attr">x</span>: <span class="number">-20</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// y轴的配置</span></div><div class="line">    yAxis: &#123;</div><div class="line">        <span class="attr">title</span>: &#123;</div><div class="line">            <span class="attr">text</span>: <span class="string">''</span></div><div class="line">        &#125;,</div><div class="line">        <span class="attr">plotLines</span>: [&#123;</div><div class="line">            <span class="attr">value</span>: <span class="number">0</span>,</div><div class="line">            <span class="attr">width</span>: <span class="number">1</span>,</div><div class="line">            <span class="attr">color</span>: <span class="string">'#808080'</span></div><div class="line">        &#125;],</div><div class="line">        <span class="attr">gridLineDashStyle</span>: <span class="string">'LongDash'</span> <span class="comment">// 背景线，设置为长虚线</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// 表头或者每个组数据的标题吧，不知道叫什么，设置为true就可以看到真面目</span></div><div class="line">    legend: &#123;</div><div class="line">        <span class="attr">enabled</span>: <span class="literal">false</span></div><div class="line">    &#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h5 id="3）通过Ajax异步请求，将数据存放到数组，并传入highchart的配置中，伪代码如下"><a href="#3）通过Ajax异步请求，将数据存放到数组，并传入highchart的配置中，伪代码如下" class="headerlink" title="3）通过Ajax异步请求，将数据存放到数组，并传入highchart的配置中，伪代码如下"></a>3）通过Ajax异步请求，将数据存放到数组，并传入highchart的配置中，伪代码如下</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//----- 定义全局变量，用于存放Ajax请求到的数据----------------</span></div><div class="line"><span class="keyword">var</span> times = []; <span class="comment">// x轴数据，价格变动时间</span></div><div class="line"><span class="keyword">var</span> prices = []; <span class="comment">// y轴数据，变动后的价格</span></div><div class="line"><span class="keyword">var</span> reasons = []; <span class="comment">// 标签内容，价格变动理由</span></div><div class="line"></div><div class="line"><span class="comment">//--------------请求数据----------------------------------</span></div><div class="line"><span class="comment">// Ajax请求函数，伪代码如下</span></div><div class="line">_util.getRecord(参数，回调函数，错误回调(errMsg))；</div><div class="line"><span class="comment">// 1.每次请求前清空数组，防止数据叠加，很重要！！！</span></div><div class="line"><span class="comment">// 2.发起ajax请求</span></div><div class="line"><span class="comment">// 3.数据请求成功，存入数组，并传给Highcharts插件的options配置项</span></div><div class="line"> times = [];</div><div class="line"> prices = [];</div><div class="line"> reasons = [];</div><div class="line"><span class="comment">// 4.将数据push到对应数组中</span></div><div class="line"> <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> res.price_record) &#123;</div><div class="line">     <span class="comment">// 格式化日期并push到数组</span></div><div class="line">     times.push(_this.formatChartTime(res.price_record[index].create_time));</div><div class="line">     <span class="comment">// 格式化价格并push到数组</span></div><div class="line">     prices.push(res.price_record[index].change_price);</div><div class="line">     <span class="comment">// 价格改动理由push到数组</span></div><div class="line">     reasons.push(res.price_record[index].reason);</div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="comment">//---------将数据传入配置-----------------------------------</span></div><div class="line"><span class="comment">// 传入x轴数据 </span></div><div class="line"> <span class="keyword">var</span> xAxis = &#123;</div><div class="line">     <span class="comment">// 传入价格修改时间，x轴</span></div><div class="line">     categories: times,</div><div class="line"> &#125;;</div><div class="line"><span class="comment">// 传入y轴数据</span></div><div class="line"> <span class="keyword">var</span> series = [&#123;</div><div class="line">     <span class="comment">// 该值会在默认的toolTip内容区显示</span></div><div class="line">     name: <span class="string">'商品价格'</span>,</div><div class="line">     <span class="comment">// 传入价格变动的数组，y轴</span></div><div class="line">     data: prices,</div><div class="line"> &#125;];</div><div class="line"> <span class="comment">// 传入x轴数据 </span></div><div class="line"> <span class="keyword">var</span> xAxis = &#123;</div><div class="line">     <span class="comment">// 传入价格修改时间，x轴</span></div><div class="line">     categories: times,</div><div class="line"> &#125;;</div></pre></td></tr></table></figure>
+<h5 id="4）本次需求需要用到动态标签，同样的直接将数据传入配置中即可。需要强调的是，动态标签的值，这里采用的是获取point点的index值，映射到【价格变动理由数组】中，从而实现鼠标滑过piont时改变标签的值。获取当前点的index值的方法（来自StackOverflow）"><a href="#4）本次需求需要用到动态标签，同样的直接将数据传入配置中即可。需要强调的是，动态标签的值，这里采用的是获取point点的index值，映射到【价格变动理由数组】中，从而实现鼠标滑过piont时改变标签的值。获取当前点的index值的方法（来自StackOverflow）" class="headerlink" title="4）本次需求需要用到动态标签，同样的直接将数据传入配置中即可。需要强调的是，动态标签的值，这里采用的是获取point点的index值，映射到【价格变动理由数组】中，从而实现鼠标滑过piont时改变标签的值。获取当前点的index值的方法（来自StackOverflow）"></a>4）本次需求需要用到动态标签，同样的直接将数据传入配置中即可。需要强调的是，动态标签的值，这里采用的是获取point点的index值，映射到【价格变动理由数组】中，从而实现鼠标滑过piont时改变标签的值。获取当前点的index值的方法（来自StackOverflow）</h5><p><code>text: reasons[this.series.data.indexOf(this)],</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 动态生成标签，用于显示价格变动理由</span></div><div class="line"> <span class="keyword">var</span> plotOptions = &#123;</div><div class="line">     <span class="attr">series</span>: &#123;</div><div class="line">         <span class="attr">point</span>: &#123;</div><div class="line">             <span class="attr">events</span>: &#123;</div><div class="line">                 <span class="attr">mouseOver</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                     <span class="keyword">var</span> chart = <span class="keyword">this</span>.series.chart;</div><div class="line">                     <span class="comment">// 创建label，如果不存在的话</span></div><div class="line">                     <span class="keyword">if</span> (!chart.lbl) &#123;</div><div class="line">                         chart.lbl = chart.renderer.label(<span class="string">''</span>, <span class="keyword">this</span>.x, <span class="keyword">this</span>.y)</div><div class="line">                             .attr(&#123;</div><div class="line">                                 <span class="attr">padding</span>: <span class="number">10</span>,</div><div class="line">                                 <span class="comment">// 圆角</span></div><div class="line">                                 r: <span class="number">5</span>,</div><div class="line">                                 <span class="comment">// 背景颜色</span></div><div class="line">                                 fill: <span class="string">'#666666'</span>,</div><div class="line">                                 <span class="attr">zIndex</span>: <span class="number">100</span>,</div><div class="line">                                 <span class="attr">fontSize</span>: <span class="number">12</span>,</div><div class="line">                             &#125;)</div><div class="line">                             .css(&#123;</div><div class="line">                                 <span class="attr">color</span>: <span class="string">'#ffffff'</span>,</div><div class="line">                             &#125;)</div><div class="line">                             .add();</div><div class="line">                     &#125;</div><div class="line">                     <span class="comment">// 设置label的属性</span></div><div class="line">                     chart.lbl</div><div class="line">                         <span class="comment">// 显示</span></div><div class="line">                         .show()</div><div class="line">                         <span class="comment">// text 为label标签值，x,y为标签位置，zIndex为标签层级</span></div><div class="line">                         .attr(&#123;</div><div class="line">                             <span class="comment">// 获取当前点的index值，并显示对应数组的值。</span></div><div class="line">                             text: reasons[<span class="keyword">this</span>.series.data.indexOf(<span class="keyword">this</span>)],</div><div class="line">                             <span class="comment">// 标签的位置，使用point.plotX和point.plotY获取当前数据点的坐标值（this指代point对象）。chart.plotLeft是表格相对视口左侧的偏移量，+50是自定义的偏移量，如果为0，标签将紧贴point的右侧。</span></div><div class="line">                             x: <span class="keyword">this</span>.plotX + chart.plotLeft + <span class="number">50</span>,</div><div class="line">                             <span class="attr">y</span>: <span class="keyword">this</span>.plotY + chart.plotTop - <span class="number">50</span>,                          <span class="comment">// 设置z-index值，防止标签被遮挡  </span></div><div class="line">                             zIndex: <span class="number">100</span></div><div class="line">                         &#125;);</div><div class="line"></div><div class="line">                 &#125;</div><div class="line">             &#125;</div><div class="line">         &#125;,</div><div class="line">         <span class="attr">events</span>: &#123;</div><div class="line">             <span class="comment">// 鼠标滑出数据点，隐藏</span></div><div class="line">             mouseOut: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                 <span class="keyword">if</span> (<span class="keyword">this</span>.chart.lbl) &#123;</div><div class="line">                     <span class="keyword">this</span>.chart.lbl.hide();</div><div class="line">                 &#125;</div><div class="line">             &#125;</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;;</div></pre></td></tr></table></figure>
+<h5 id="5）根据项目需要，定制toolTip提示框，配置如下"><a href="#5）根据项目需要，定制toolTip提示框，配置如下" class="headerlink" title="5）根据项目需要，定制toolTip提示框，配置如下"></a>5）根据项目需要，定制toolTip提示框，配置如下</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 提示框配置</span></div><div class="line"> <span class="keyword">var</span> tooltip = &#123;</div><div class="line">     <span class="attr">backgroundColor</span>: <span class="string">'#666666'</span>, <span class="comment">// 背景颜色</span></div><div class="line">     borderColor: <span class="string">'#666666'</span>, <span class="comment">// 边框颜色</span></div><div class="line">     borderRadius: <span class="number">10</span>, <span class="comment">// 边框圆角</span></div><div class="line">     borderWidth: <span class="number">0</span>, <span class="comment">// 边框宽度</span></div><div class="line">     shadow: <span class="literal">true</span>, <span class="comment">// 是否显示阴影</span></div><div class="line">     animation: <span class="literal">true</span>, <span class="comment">// 是否启用动画效果</span></div><div class="line">     style: &#123; <span class="comment">// 文字内容相关样式</span></div><div class="line">         color: <span class="string">"#ffffff"</span>,</div><div class="line">         <span class="attr">fontSize</span>: <span class="string">"12px"</span>,</div><div class="line">         <span class="attr">fontWeight</span>: <span class="string">"blod"</span>,</div><div class="line">         <span class="attr">fontFamily</span>: <span class="string">"Courir new"</span></div><div class="line">     &#125;,</div><div class="line">     <span class="attr">useHTML</span>: <span class="literal">true</span>,</div><div class="line">     <span class="attr">crosshairs</span>: <span class="literal">true</span>, <span class="comment">// 仅设置y轴准星线（竖直向下的线）</span></div><div class="line">     <span class="comment">// crosshairs:[true,true] // 同时设置x、y轴的准星线</span></div><div class="line">     crosshairs: [&#123; <span class="comment">// 设置准星线样式</span></div><div class="line">         width: <span class="number">1</span>,</div><div class="line">         <span class="attr">color</span>: <span class="string">'#50A2FF'</span>,</div><div class="line">         <span class="attr">dashStyle</span>: <span class="string">'longdashdot'</span>,</div><div class="line">         <span class="attr">zIndex</span>: <span class="number">1</span></div><div class="line">     &#125;],</div><div class="line">     <span class="comment">// 自定义toolTip的内容和样式</span></div><div class="line">     formatter: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">         <span class="comment">// 格式化输出提示框，this.y表示输出y轴的值</span></div><div class="line">         <span class="keyword">return</span> <span class="string">'￥'</span> + <span class="keyword">this</span>.y;</div><div class="line">     &#125;</div><div class="line"> &#125;;</div></pre></td></tr></table></figure>
+<h5 id="6）关键的一步，绑定刚刚上面的配置到options，new一个highchart对象，并传入options就可以了。"><a href="#6）关键的一步，绑定刚刚上面的配置到options，new一个highchart对象，并传入options就可以了。" class="headerlink" title="6）关键的一步，绑定刚刚上面的配置到options，new一个highchart对象，并传入options就可以了。"></a>6）关键的一步，绑定刚刚上面的配置到options，new一个highchart对象，并传入options就可以了。</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 绑定配置</span></div><div class="line"> options.series = series;</div><div class="line"> options.xAxis = xAxis;</div><div class="line"> options.plotOptions = plotOptions;</div><div class="line"> options.tooltip = tooltip;</div><div class="line"> <span class="comment">// 传入配置，绘制图像</span></div><div class="line"> <span class="keyword">var</span> chart = <span class="keyword">new</span> Highcharts.Chart(<span class="string">'container'</span>, options);</div></pre></td></tr></table></figure>
+<h5 id="7）最后，附上比较完整的代码getChangePriceRecord（data-success-error）是一个封装好的ajax函数。"><a href="#7）最后，附上比较完整的代码getChangePriceRecord（data-success-error）是一个封装好的ajax函数。" class="headerlink" title="7）最后，附上比较完整的代码getChangePriceRecord（data,success,error）是一个封装好的ajax函数。"></a>7）最后，附上比较完整的代码getChangePriceRecord（data,success,error）是一个封装好的ajax函数。</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">// 获取不同规格的价格走势图</span></div><div class="line">getRecord: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">   <span class="keyword">var</span> _this = <span class="keyword">this</span>;</div><div class="line">   _goods.getChangePriceRecord(&#123;</div><div class="line">           <span class="attr">product_id</span>: _this.data.goodsId,</div><div class="line">           <span class="attr">standard_id</span>: _this.data.current_selected_goods_id</div><div class="line">       &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">           <span class="comment">// 清空数组，防止数据叠加，很重要！！！！</span></div><div class="line">           times = [];</div><div class="line">           prices = [];</div><div class="line">           reasons = [];</div><div class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> res.price_record) &#123;</div><div class="line">               <span class="comment">// 格式化日期并push到数组</span></div><div class="line">               times.push(_this.formatChartTime(res.price_record[index].create_time));</div><div class="line">               <span class="comment">// 格式化价格并push到数组</span></div><div class="line">               prices.push(res.price_record[index].change_price);</div><div class="line">               <span class="comment">// 价格改动理由push到数组</span></div><div class="line">               reasons.push(res.price_record[index].reason);</div><div class="line">           &#125;</div><div class="line">           <span class="comment">// 图表基础（通用）配置</span></div><div class="line">           <span class="keyword">var</span> options = &#123;</div><div class="line">               <span class="attr">credits</span>: &#123;</div><div class="line">                   <span class="attr">enabled</span>: <span class="literal">false</span></div><div class="line">               &#125;,</div><div class="line">               <span class="comment">// 没有数据时，显示的内容，该功能需要引入特定js文件，具体看html页面底部</span></div><div class="line">               lang: &#123;</div><div class="line">                   <span class="attr">noData</span>: <span class="string">'暂无数据!'</span></div><div class="line">               &#125;,</div><div class="line">               <span class="attr">chart</span>: &#123;</div><div class="line">                   <span class="attr">renderTo</span>: <span class="string">'container'</span>,</div><div class="line">                   <span class="attr">type</span>: <span class="string">'spline'</span>,</div><div class="line"></div><div class="line">                   <span class="comment">// 指定内边距，下面的四个配置可以用 spacing: [10, 10, 15, 10] 来代替</span></div><div class="line">                   spacingBottom: <span class="number">15</span>,</div><div class="line">                   <span class="attr">spacingTop</span>: <span class="number">10</span>,</div><div class="line">                   <span class="attr">spacingLeft</span>: <span class="number">10</span>,</div><div class="line">                   <span class="attr">spacingRight</span>: <span class="number">10</span>,</div><div class="line">                   <span class="comment">// 指定外边距</span></div><div class="line">                   margin: <span class="number">50</span>,</div><div class="line">                   <span class="comment">// 指定图表大小</span></div><div class="line">                   width: <span class="number">800</span>,</div><div class="line">                   <span class="attr">height</span>: <span class="number">300</span></div><div class="line">               &#125;,</div><div class="line">               <span class="comment">// 表格的标题</span></div><div class="line">               title: &#123;</div><div class="line">                   <span class="attr">text</span>: <span class="string">''</span>,</div><div class="line">                   <span class="attr">x</span>: <span class="number">-20</span></div><div class="line">               &#125;,</div><div class="line">               <span class="comment">// 表格的子标题    </span></div><div class="line">               subtitle: &#123;</div><div class="line">                   <span class="attr">text</span>: <span class="string">''</span>,</div><div class="line">                   <span class="attr">x</span>: <span class="number">-20</span></div><div class="line">               &#125;,</div><div class="line">               <span class="comment">// y轴的配置</span></div><div class="line">               yAxis: &#123;</div><div class="line">                   <span class="attr">title</span>: &#123;</div><div class="line">                       <span class="attr">text</span>: <span class="string">''</span></div><div class="line">                   &#125;,</div><div class="line">                   <span class="attr">plotLines</span>: [&#123;</div><div class="line">                       <span class="attr">value</span>: <span class="number">0</span>,</div><div class="line">                       <span class="attr">width</span>: <span class="number">1</span>,</div><div class="line">                       <span class="attr">color</span>: <span class="string">'#808080'</span></div><div class="line">                   &#125;],</div><div class="line">                   <span class="comment">// 背景线，设置为长虚线</span></div><div class="line">                   gridLineDashStyle: <span class="string">'LongDash'</span></div><div class="line">               &#125;,</div><div class="line">               <span class="comment">// 表头或者每个组数据的标题吧，不知道叫什么，设置为true就可以看到真面目</span></div><div class="line">               legend: &#123;</div><div class="line">                   <span class="attr">enabled</span>: <span class="literal">false</span></div><div class="line">               &#125;,</div><div class="line">           &#125;;</div><div class="line">           <span class="comment">// 传入x轴数据 </span></div><div class="line">           <span class="keyword">var</span> xAxis = &#123;</div><div class="line">               <span class="comment">// 传入价格修改时间，x轴</span></div><div class="line">               categories: times,</div><div class="line">           &#125;;</div><div class="line">           <span class="comment">// 传入y轴数据</span></div><div class="line">           <span class="keyword">var</span> series = [&#123;</div><div class="line">               <span class="comment">// 该值会在默认的toolTip内容区显示</span></div><div class="line">               name: <span class="string">'商品价格'</span>,</div><div class="line">               <span class="comment">// 传入价格变动的数组，y轴</span></div><div class="line">               data: prices,</div><div class="line">           &#125;];</div><div class="line"></div><div class="line">           <span class="comment">// 动态生成标签，用于显示价格变动理由</span></div><div class="line">           <span class="keyword">var</span> plotOptions = &#123;</div><div class="line">               <span class="attr">series</span>: &#123;</div><div class="line">                   <span class="attr">point</span>: &#123;</div><div class="line">                       <span class="attr">events</span>: &#123;</div><div class="line">                           <span class="attr">mouseOver</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                               <span class="keyword">var</span> chart = <span class="keyword">this</span>.series.chart;</div><div class="line">                               <span class="comment">// 创建label，如果不存在的话</span></div><div class="line">                               <span class="keyword">if</span> (!chart.lbl) &#123;</div><div class="line">                                   chart.lbl = chart.renderer.label(<span class="string">''</span>, <span class="keyword">this</span>.x, <span class="keyword">this</span>.y)</div><div class="line">                                       .attr(&#123;</div><div class="line">                                           <span class="attr">padding</span>: <span class="number">10</span>,</div><div class="line">                                           <span class="attr">r</span>: <span class="number">5</span>,</div><div class="line">                                           <span class="attr">fill</span>: <span class="string">'#666666'</span>,</div><div class="line">                                           <span class="attr">zIndex</span>: <span class="number">100</span>,</div><div class="line">                                           <span class="attr">fontSize</span>: <span class="number">12</span>,</div><div class="line">                                       &#125;)</div><div class="line">                                       .css(&#123;</div><div class="line">                                           <span class="attr">color</span>: <span class="string">'#ffffff'</span>,</div><div class="line">                                       &#125;)</div><div class="line">                                       .add();</div><div class="line">                               &#125;</div><div class="line">                               <span class="comment">// 设置label的属性</span></div><div class="line">                               chart.lbl</div><div class="line">                                   <span class="comment">// 显示</span></div><div class="line">                                   .show()</div><div class="line">                                   <span class="comment">// text 为label标签值，x,y为标签位置，zIndex为标签层级</span></div><div class="line">                                   .attr(&#123;</div><div class="line">                                       <span class="comment">// 获取当前点的index值，并显示对应数组的值。</span></div><div class="line">                                       text: reasons[<span class="keyword">this</span>.series.data.indexOf(<span class="keyword">this</span>)],</div><div class="line">                                       <span class="attr">x</span>: <span class="keyword">this</span>.plotX + chart.plotLeft + <span class="number">50</span>,</div><div class="line">                                       <span class="attr">y</span>: <span class="keyword">this</span>.plotY + chart.plotTop - <span class="number">50</span>,</div><div class="line">                                       <span class="attr">zIndex</span>: <span class="number">100</span></div><div class="line">                                   &#125;);</div><div class="line"></div><div class="line">                           &#125;</div><div class="line">                       &#125;</div><div class="line">                   &#125;,</div><div class="line">                   <span class="attr">events</span>: &#123;</div><div class="line">                       <span class="comment">// 鼠标滑出数据点，隐藏</span></div><div class="line">                       mouseOut: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                           <span class="keyword">if</span> (<span class="keyword">this</span>.chart.lbl) &#123;</div><div class="line">                               <span class="keyword">this</span>.chart.lbl.hide();</div><div class="line">                           &#125;</div><div class="line">                       &#125;</div><div class="line">                   &#125;</div><div class="line">               &#125;</div><div class="line">           &#125;;</div><div class="line">           <span class="comment">// 提示框配置</span></div><div class="line">           <span class="keyword">var</span> tooltip = &#123;</div><div class="line">               <span class="attr">backgroundColor</span>: <span class="string">'#666666'</span>, <span class="comment">// 背景颜色</span></div><div class="line">               borderColor: <span class="string">'#666666'</span>, <span class="comment">// 边框颜色</span></div><div class="line">               borderRadius: <span class="number">10</span>, <span class="comment">// 边框圆角</span></div><div class="line">               borderWidth: <span class="number">0</span>, <span class="comment">// 边框宽度</span></div><div class="line">               shadow: <span class="literal">true</span>, <span class="comment">// 是否显示阴影</span></div><div class="line">               animation: <span class="literal">true</span>, <span class="comment">// 是否启用动画效果</span></div><div class="line">               style: &#123; <span class="comment">// 文字内容相关样式</span></div><div class="line">                   color: <span class="string">"#ffffff"</span>,</div><div class="line">                   <span class="attr">fontSize</span>: <span class="string">"12px"</span>,</div><div class="line">                   <span class="attr">fontWeight</span>: <span class="string">"blod"</span>,</div><div class="line">                   <span class="attr">fontFamily</span>: <span class="string">"Courir new"</span></div><div class="line">               &#125;,</div><div class="line">               <span class="attr">useHTML</span>: <span class="literal">true</span>,</div><div class="line">               <span class="attr">crosshairs</span>: <span class="literal">true</span>,</div><div class="line">               <span class="attr">crosshairs</span>: [&#123; <span class="comment">// 设置准星线样式</span></div><div class="line">                   width: <span class="number">1</span>,</div><div class="line">                   <span class="attr">color</span>: <span class="string">'#50A2FF'</span>,</div><div class="line">                   <span class="attr">dashStyle</span>: <span class="string">'longdashdot'</span>,</div><div class="line">                   <span class="attr">zIndex</span>: <span class="number">1</span></div><div class="line">               &#125;],</div><div class="line">               <span class="attr">formatter</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                   <span class="comment">// 格式化输出提示框，this.y表示输出y轴的值</span></div><div class="line">                   <span class="keyword">return</span> <span class="string">'￥'</span> + <span class="keyword">this</span>.y;</div><div class="line">               &#125;</div><div class="line">           &#125;;</div><div class="line">           <span class="comment">// 绑定配置</span></div><div class="line">           options.series = series;</div><div class="line">           options.xAxis = xAxis;</div><div class="line">           options.plotOptions = plotOptions;</div><div class="line">           options.tooltip = tooltip;</div><div class="line">           <span class="comment">// 传入配置，绘制图像</span></div><div class="line">           <span class="keyword">var</span> chart = <span class="keyword">new</span> Highcharts.Chart(<span class="string">'container'</span>, options);</div><div class="line">       &#125;,</div><div class="line">       <span class="function"><span class="keyword">function</span>(<span class="params">errMsg</span>) </span>&#123;</div><div class="line">           _util.errorTips(errMsg);</div><div class="line">       &#125;)</div><div class="line">&#125;,</div><div class="line"><span class="comment">// 时间格式化,格式为：月/日，小于10，前面也不加0</span></div><div class="line">formatChartTime: <span class="function"><span class="keyword">function</span>(<span class="params">now</span>) </span>&#123;</div><div class="line">   <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>(now * <span class="number">1000</span>);</div><div class="line">   <span class="keyword">var</span> month = (now.getMonth() + <span class="number">1</span>);</div><div class="line">   <span class="keyword">var</span> date = (now.getDate());</div><div class="line">   <span class="keyword">return</span> month + <span class="string">"/"</span> + date;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>以上，就是Highcharts的使用总结了，更多高级功能等待大家去发掘！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HighCharts-js/" rel="tag"># HighCharts.js</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/06/监听浏览器返回事件及Web存储的使用/" rel="next" title="监听浏览器返回事件及Web存储的使用">
+                <i class="fa fa-chevron-left"></i> 监听浏览器返回事件及Web存储的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="linlif" />
+          <p class="site-author-name" itemprop="name">linlif</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累知识，记录点滴！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/linlif" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/58cadd85c47b" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、商品走势图，HighCharts插件的使用心得"><span class="nav-text">1、商品走势图，HighCharts插件的使用心得</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）引入highchart-js文件，创建表格父容器"><span class="nav-text">1）引入highchart.js文件，创建表格父容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）用对象的方式配置options，首先是基本的样式配置"><span class="nav-text">2）用对象的方式配置options，首先是基本的样式配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）通过Ajax异步请求，将数据存放到数组，并传入highchart的配置中，伪代码如下"><span class="nav-text">3）通过Ajax异步请求，将数据存放到数组，并传入highchart的配置中，伪代码如下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）本次需求需要用到动态标签，同样的直接将数据传入配置中即可。需要强调的是，动态标签的值，这里采用的是获取point点的index值，映射到【价格变动理由数组】中，从而实现鼠标滑过piont时改变标签的值。获取当前点的index值的方法（来自StackOverflow）"><span class="nav-text">4）本次需求需要用到动态标签，同样的直接将数据传入配置中即可。需要强调的是，动态标签的值，这里采用的是获取point点的index值，映射到【价格变动理由数组】中，从而实现鼠标滑过piont时改变标签的值。获取当前点的index值的方法（来自StackOverflow）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5）根据项目需要，定制toolTip提示框，配置如下"><span class="nav-text">5）根据项目需要，定制toolTip提示框，配置如下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6）关键的一步，绑定刚刚上面的配置到options，new一个highchart对象，并传入options就可以了。"><span class="nav-text">6）关键的一步，绑定刚刚上面的配置到options，new一个highchart对象，并传入options就可以了。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7）最后，附上比较完整的代码getChangePriceRecord（data-success-error）是一个封装好的ajax函数。"><span class="nav-text">7）最后，附上比较完整的代码getChangePriceRecord（data,success,error）是一个封装好的ajax函数。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">linlif</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
