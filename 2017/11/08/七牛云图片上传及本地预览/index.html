@@ -1,0 +1,786 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="七牛云,图片上传,图片预览,本地预览" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1、七牛云上传图片插件的使用（初级）1.1 更换头像功能插件地址：https://developer.qiniu.com/kodo/sdk/1283/javascript该插件是七牛云官方提供的，基于jQuery编写，所以首先要引入jQuery。以下插件建议在html的body底部引入，确保被率先加载，插件的顺序不能颠倒。 1）在页面中引入jQuery，在html的body底部引入，确保被率先加载">
+<meta name="keywords" content="七牛云,图片上传,图片预览,本地预览">
+<meta property="og:type" content="article">
+<meta property="og:title" content="七牛云图片上传及本地预览">
+<meta property="og:url" content="https://linlif.github.io/2017/11/08/七牛云图片上传及本地预览/index.html">
+<meta property="og:site_name" content="linlif-blog">
+<meta property="og:description" content="1、七牛云上传图片插件的使用（初级）1.1 更换头像功能插件地址：https://developer.qiniu.com/kodo/sdk/1283/javascript该插件是七牛云官方提供的，基于jQuery编写，所以首先要引入jQuery。以下插件建议在html的body底部引入，确保被率先加载，插件的顺序不能颠倒。 1）在页面中引入jQuery，在html的body底部引入，确保被率先加载">
+<meta property="og:updated_time" content="2017-11-08T15:21:59.150Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="七牛云图片上传及本地预览">
+<meta name="twitter:description" content="1、七牛云上传图片插件的使用（初级）1.1 更换头像功能插件地址：https://developer.qiniu.com/kodo/sdk/1283/javascript该插件是七牛云官方提供的，基于jQuery编写，所以首先要引入jQuery。以下插件建议在html的body底部引入，确保被率先加载，插件的顺序不能颠倒。 1）在页面中引入jQuery，在html的body底部引入，确保被率先加载">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://linlif.github.io/2017/11/08/七牛云图片上传及本地预览/"/>
+
+
+
+
+
+  <title>七牛云图片上传及本地预览 | linlif-blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f8eb2e0a2f9a4254c8e9cb312618c71";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linlif-blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个沉淀知识的地方！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://linlif.github.io/2017/11/08/七牛云图片上传及本地预览/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="linlif">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linlif-blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">七牛云图片上传及本地预览</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-08T22:10:47+08:00">
+                2017-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1、七牛云上传图片插件的使用（初级）"><a href="#1、七牛云上传图片插件的使用（初级）" class="headerlink" title="1、七牛云上传图片插件的使用（初级）"></a>1、七牛云上传图片插件的使用（初级）</h2><h4 id="1-1-更换头像功能"><a href="#1-1-更换头像功能" class="headerlink" title="1.1 更换头像功能"></a>1.1 更换头像功能</h4><p>插件地址：<a href="https://developer.qiniu.com/kodo/sdk/1283/javascript" target="_blank" rel="external">https://developer.qiniu.com/kodo/sdk/1283/javascript</a><br>该插件是七牛云官方提供的，基于jQuery编写，所以首先要引入jQuery。以下插件建议在html的body底部引入，确保被率先加载，插件的顺序不能颠倒。</p>
+<p>1）在页面中引入jQuery，在html的body底部引入，确保被率先加载<br>2） 在页面中引入 plupload插件，plupload.full.min.js（产品环境）或引入 plupload.dev.js 和 moxie.js（开发调试）<br>3） 在页面中引入 qiniu.min.js（生产环境）或 qiniu.js（开发调试），代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--上传区域DOM ID，默认是browser_button的父元素，内层也必须使用id命名，然后传入uploader的对应参数中--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"pickfiles"</span>&gt;</span>更换头像<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 引入文件jQuery库 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../../src/lib/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 引入plupload.full.min.js第三方上传库，七牛SDK是基于这个库封装的 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"../../src/lib/CKEditor/js/plupload.full.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 引入七牛官方SDK，可在七牛开发中中心下载 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"../../src/lib/qiniu.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>4）配置、初始化 uploader,代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> page = &#123;</div><div class="line">    <span class="comment">// 获取七牛云Token，变量名uptoken不要修改，上传七牛云要用到的token。</span></div><div class="line">    getConfig: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> _this = <span class="keyword">this</span>;</div><div class="line">        <span class="comment">// 获取七牛云配置的接口（返回uptoken、domain）</span></div><div class="line">        _qiniu.getBucketConfig(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">            uptoken = data.config.token;</div><div class="line">            domain = data.config.bucket_domain;</div><div class="line">            <span class="comment">// 七牛上传图片配置（options）</span></div><div class="line">            <span class="keyword">var</span> options = &#123;</div><div class="line">                <span class="attr">runtimes</span>: <span class="string">'html5,flash,html4'</span>, <span class="comment">// 上传模式，依次退化</span></div><div class="line">                browse_button: <span class="string">'pickfiles'</span>, <span class="comment">// 上传选择的点选按钮，必需</span></div><div class="line">                uptoken: uptoken, <span class="comment">// uptoken是上传凭证，由其他程序生成</span></div><div class="line">                get_new_uptoken: <span class="literal">true</span>, <span class="comment">// 设置上传文件的时候是否每次都重新获取新的uptoken</span></div><div class="line">                unique_names: <span class="literal">true</span>, <span class="comment">// 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）</span></div><div class="line">                domain: domain, <span class="comment">// bucket域名，下载资源时用到，必需</span></div><div class="line">                container: <span class="string">'container'</span>, <span class="comment">// 上传区域DOM ID，默认是browser_button的父元素</span></div><div class="line">                max_file_size: <span class="string">'100mb'</span>, <span class="comment">// 最大文件体积限制</span></div><div class="line">                max_retries: <span class="number">3</span>, <span class="comment">// 上传失败最大重试次数</span></div><div class="line">                dragdrop: <span class="literal">true</span>, <span class="comment">// 开启可拖曳上传</span></div><div class="line">                drop_element: <span class="string">'container'</span>, <span class="comment">// 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传</span></div><div class="line">                chunk_size: <span class="string">'4mb'</span>, <span class="comment">// 分块上传时，每块的体积</span></div><div class="line">                auto_start: <span class="literal">true</span>, <span class="comment">// 选择文件后自动上传，若关闭需要自己绑定事件触发上传</span></div><div class="line">                init: &#123;</div><div class="line">                    <span class="string">'FilesAdded'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, files</span>) </span>&#123;</div><div class="line">                        plupload.each(files, <span class="function"><span class="keyword">function</span>(<span class="params">file</span>) </span>&#123;</div><div class="line">                            <span class="comment">// 文件添加进队列后，处理相关的事情</span></div><div class="line">                        &#125;);</div><div class="line">                    &#125;,</div><div class="line">                    <span class="string">'BeforeUpload'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, file</span>) </span>&#123;</div><div class="line">                        <span class="comment">// 每个文件上传前，处理相关的事情</span></div><div class="line">                    &#125;,</div><div class="line">                    <span class="string">'UploadProgress'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, file</span>) </span>&#123;</div><div class="line">                        <span class="comment">// 每个文件上传时，处理相关的事情</span></div><div class="line">                    &#125;,</div><div class="line">                    <span class="string">'FileUploaded'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, file, info</span>) </span>&#123;</div><div class="line">                        <span class="comment">// 每个文件上传成功后，处理相关的事情</span></div><div class="line">                        <span class="comment">// 其中info是文件上传成功后，服务端返回的json，形式如：</span></div><div class="line">                        <span class="comment">// &#123;</span></div><div class="line">                        <span class="comment">//    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",</span></div><div class="line">                        <span class="comment">//    "key": "gogopher.jpg"</span></div><div class="line">                        <span class="comment">//  &#125;</span></div><div class="line">                        <span class="comment">// 拿到返回图像的url</span></div><div class="line">                        <span class="keyword">var</span> domain = up.getOption(<span class="string">'domain'</span>);</div><div class="line">                        <span class="comment">// var res = parseJSON(info);</span></div><div class="line">                        <span class="comment">// var res = JSON.parse(info);</span></div><div class="line">                        <span class="keyword">var</span> sourceLink = domain + file.target_name; <span class="comment">//获取上传成功后的文件的Url</span></div><div class="line">                        <span class="comment">// 保存图像的url，之后调用接口替换服务器端的图片地址即可完成头像更换功能</span></div><div class="line">                        _this.change_user_avatar(sourceLink);</div><div class="line">                    &#125;,</div><div class="line">                    <span class="string">'Error'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, err, errTip</span>) </span>&#123;</div><div class="line">                        <span class="comment">//上传出错时，处理相关的事情</span></div><div class="line">                    &#125;,</div><div class="line">                    <span class="string">'UploadComplete'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                        <span class="comment">//队列文件处理完毕后，处理相关的事情</span></div><div class="line">                    &#125;,</div><div class="line">                    <span class="string">'Key'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, file</span>) </span>&#123;</div><div class="line">                        <span class="comment">// 若想在前端对每个文件的key进行个性化处理，可以配置该函数</span></div><div class="line">                        <span class="comment">// 该配置必须要在unique_names: false，save_key: false时才生效</span></div><div class="line">    </div><div class="line">                        <span class="keyword">var</span> key = <span class="string">""</span>;</div><div class="line">                        <span class="comment">// do something with key here</span></div><div class="line">                        <span class="keyword">return</span> key</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">    </div><div class="line">            <span class="comment">// 创建一个七牛上传图片实例并传入配置信息（此时一切准备就绪，点击相应按钮会弹出文件选择弹窗）</span></div><div class="line">            <span class="keyword">var</span> uploader = Qiniu.uploader(options);</div><div class="line">        &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">errMsg</span>) </span>&#123;</div><div class="line">            _util.errTip(errMsg);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    page.getConfig();</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="2、七牛云上传图片插件的使用（中级）"><a href="#2、七牛云上传图片插件的使用（中级）" class="headerlink" title="2、七牛云上传图片插件的使用（中级）"></a>2、七牛云上传图片插件的使用（中级）</h2><h4 id="2-1-图片本地预览功能（上传前）"><a href="#2-1-图片本地预览功能（上传前）" class="headerlink" title="2.1 图片本地预览功能（上传前）"></a>2.1 图片本地预览功能（上传前）</h4><p>大概的原理如下：</p>
+<ul>
+<li>七牛上传图片时，有一个回调函数<code>FilesAdded：function(up, files){}</code>，up指向上传实例，files是上传的文件对象（描述可能不准确，请自行<code>console.log(files/up)</code>到控制台查看）</li>
+<li>图片本地预览，就是在图片添加以后，从上传队列中使用<code>getNative()</code>方法读取图片的原始对象<code>fileItem</code>,通过<code>url.createObjectURL(fileItem)</code>方法，合成图片的本地url地址</li>
+<li>赋值给img标签的src属性,完成图片的预览功能</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 图片上传前本地预览功能</span></div><div class="line"><span class="keyword">var</span> page = &#123;</div><div class="line">    <span class="attr">getConfig3</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> _this = <span class="keyword">this</span>;</div><div class="line">         <span class="comment">// 获取七牛云配置的接口（返回uptoken、domain）</span></div><div class="line">        _qiniu.getBucketConfig(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                uptoken = data.config.token;</div><div class="line">                domain = data.config.bucket_domain;</div><div class="line">                <span class="comment">// 图片上传配置</span></div><div class="line">                <span class="keyword">var</span> option3 = &#123;</div><div class="line">                    <span class="attr">runtimes</span>: <span class="string">'html5,flash,html4'</span>, <span class="comment">// 上传模式，依次退化</span></div><div class="line">                    browse_button: <span class="string">'certificatePic'</span>, <span class="comment">// 上传选择的点选按钮，必需</span></div><div class="line">                    uptoken: uptoken, <span class="comment">// uptoken是上传凭证，由其他程序生成</span></div><div class="line">                    get_new_uptoken: <span class="literal">true</span>, <span class="comment">// 设置上传文件的时候是否每次都重新获取新的uptoken</span></div><div class="line">                    unique_names: <span class="literal">true</span>, <span class="comment">// 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）</span></div><div class="line">                    domain: domain, <span class="comment">// bucket域名，下载资源时用到，必需</span></div><div class="line">                    container: <span class="string">'certificateContainer'</span>, <span class="comment">// 上传区域DOM ID，默认是browser_button的父元素</span></div><div class="line">                    max_file_size: <span class="string">'100mb'</span>, <span class="comment">// 最大文件体积限制</span></div><div class="line">                    max_retries: <span class="number">5</span>, <span class="comment">// 上传失败最大重试次数</span></div><div class="line">                    dragdrop: <span class="literal">true</span>, <span class="comment">// 开启可拖曳上传</span></div><div class="line">                    drop_element: <span class="string">'certificateContainer'</span>, <span class="comment">// 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传</span></div><div class="line">                    chunk_size: <span class="string">'4mb'</span>, <span class="comment">// 分块上传时，每块的体积</span></div><div class="line">                    auto_start: <span class="literal">false</span>, <span class="comment">// 选择文件后自动上传，若关闭需要自己绑定事件触发上传</span></div><div class="line">                    <span class="comment">// 设置一次只能选择一个文件</span></div><div class="line">                    multi_selection: <span class="literal">false</span>,</div><div class="line">                    <span class="attr">init</span>: &#123;</div><div class="line">                        <span class="string">'FilesAdded'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, files</span>) </span>&#123;</div><div class="line">                            <span class="comment">// 显示或隐藏添加图片按钮</span></div><div class="line">                            <span class="keyword">if</span> (up.files.length &gt;= <span class="number">3</span>) &#123;</div><div class="line">                                $(<span class="string">'#certificateContainer'</span>).hide();</div><div class="line">                                <span class="comment">// 只保留前三张图片</span></div><div class="line">                                up.files.splice(<span class="number">3</span>, up.files.length - <span class="number">1</span>);</div><div class="line">                            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                                $(<span class="string">'#certificateContainer'</span>).show();</div><div class="line">                            &#125;</div><div class="line">    </div><div class="line">                            <span class="comment">// --------------- 图片本地预览 -----------------</span></div><div class="line">                            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; files.length; i++) &#123;</div><div class="line">                                <span class="keyword">var</span> fileItem = files[i].getNative(),</div><div class="line">                                    url = <span class="built_in">window</span>.URL || <span class="built_in">window</span>.webkitURL || <span class="built_in">window</span>.mozURL;</div><div class="line">                                <span class="keyword">var</span> src = url.createObjectURL(fileItem);</div><div class="line">                                <span class="keyword">var</span> tmpl = <span class="string">'&lt;li data-url="#url#"&gt;&lt;img src="#url#"alt=""&gt;&lt;i data-id="'</span> + files[i].id + <span class="string">'" class="iconfont close"&gt;&amp;#xe646;&lt;/i&gt;&lt;/li&gt;'</span>;</div><div class="line">                                $(<span class="string">"#imgPreview"</span>).append($(tmpl.replace(<span class="regexp">/#url#/ig</span>, src)));</div><div class="line">                            &#125;</div><div class="line">                            <span class="comment">// 删除预览图</span></div><div class="line">                            $(<span class="string">'#imgPreview li .close'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                                <span class="keyword">try</span> &#123;</div><div class="line">                                    <span class="comment">// 删除上传队列中对应的file</span></div><div class="line">                                    up.splice(files[$(<span class="keyword">this</span>).attr(<span class="string">'data-index'</span>)], <span class="number">1</span>);</div><div class="line">                                &#125; <span class="keyword">catch</span> (error) &#123;</div><div class="line">                                    <span class="built_in">console</span>.log(error);</div><div class="line">                                &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                                    <span class="comment">// 显示或隐藏添加图片按钮</span></div><div class="line">                                    <span class="keyword">if</span> (up.files.length &gt;= <span class="number">3</span>) &#123;</div><div class="line">                                        $(<span class="string">'#certificateContainer'</span>).hide();</div><div class="line">                                        <span class="comment">// 只保留前三张图片</span></div><div class="line">                                        up.files.splice(<span class="number">3</span>, up.files.length - <span class="number">1</span>);</div><div class="line">                                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                                        $(<span class="string">'#certificateContainer'</span>).show();</div><div class="line">                                    &#125;</div><div class="line">                                    <span class="comment">// 删除图片和关闭按钮</span></div><div class="line">                                    $(<span class="keyword">this</span>).parent().remove();</div><div class="line">                                    $(<span class="keyword">this</span>).remove();</div><div class="line">                                    <span class="built_in">console</span>.log(up);</div><div class="line">                                &#125;</div><div class="line">                            &#125;)</div><div class="line">                            <span class="built_in">console</span>.log(up);</div><div class="line">                        &#125;,</div><div class="line">                        <span class="string">'BeforeUpload'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, file</span>) </span>&#123;</div><div class="line">                            <span class="comment">// 每个文件上传前，处理相关的事情</span></div><div class="line">                        &#125;,</div><div class="line">                        <span class="string">'UploadProgress'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, file</span>) </span>&#123;</div><div class="line">                            <span class="comment">// 每个文件上传时，处理相关的事情</span></div><div class="line">                        &#125;,</div><div class="line">                        <span class="string">'FileUploaded'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, file, info</span>) </span>&#123;</div><div class="line">                            <span class="comment">// 每个文件上传成功后，处理相关的事情</span></div><div class="line">                            <span class="comment">// 其中info是文件上传成功后，服务端返回的json，形式如：</span></div><div class="line">                            <span class="comment">// &#123;</span></div><div class="line">                            <span class="comment">//    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",</span></div><div class="line">                            <span class="comment">//    "key": "gogopher.jpg"</span></div><div class="line">                            <span class="comment">//  &#125;</span></div><div class="line">                            <span class="comment">// 拿到返回图像的url</span></div><div class="line">                            <span class="comment">// var domain = up.getOption('domain');</span></div><div class="line">                            <span class="comment">// 拿到地址</span></div><div class="line">                            <span class="comment">// var sourceLink = domain + file.target_name; //获取上传成功后的文件的Url</span></div><div class="line">    </div><div class="line">                            <span class="comment">// 拼接图片链接地址</span></div><div class="line">                            sourceLink += <span class="string">'|'</span> + file.target_name + <span class="string">':1'</span>;</div><div class="line">    </div><div class="line">                        &#125;,</div><div class="line">                        <span class="string">'Error'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, err, errTip</span>) </span>&#123;</div><div class="line">                            <span class="comment">//上传出错时，处理相关的事情</span></div><div class="line">                            <span class="built_in">console</span>.log(errTip);</div><div class="line">                        &#125;,</div><div class="line">                        <span class="string">'UploadComplete'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">up, files</span>) </span>&#123;</div><div class="line">                            <span class="comment">// 字符串截取，去掉前面的'|'</span></div><div class="line">                            _this.data.certificate_src = sourceLink.substring(<span class="number">1</span>);</div><div class="line">    </div><div class="line">                            <span class="comment">//提交数据</span></div><div class="line">                            _this.toBeDesigner();</div><div class="line">    </div><div class="line">                            <span class="comment">// 清空上传队列</span></div><div class="line">                            up.files.splice(<span class="number">0</span>, up.files.length);</div><div class="line">    </div><div class="line">                            <span class="comment">// 清空预览图</span></div><div class="line">                            $(<span class="string">'#imgPreview'</span>).empty();</div><div class="line">    </div><div class="line">                            <span class="comment">// 显示或隐藏添加图片按钮</span></div><div class="line">                            <span class="keyword">if</span> (up.files.length &gt;= <span class="number">3</span>) &#123;</div><div class="line">                                $(<span class="string">'#certificateContainer'</span>).hide();</div><div class="line">                                <span class="comment">// 只保留前三张图片</span></div><div class="line">                                up.files.splice(<span class="number">3</span>, up.files.length - <span class="number">1</span>);</div><div class="line">                            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                                $(<span class="string">'#certificateContainer'</span>).show();</div><div class="line">                            &#125;</div><div class="line">                        &#125;,</div><div class="line">                    &#125;</div><div class="line">                &#125;;</div><div class="line">                <span class="comment">//创建七牛上传实例（至此，初始化完毕，每次添加图片即可实现本地预览）</span></div><div class="line">                uploader3 = Qiniu.uploader(option3);</div><div class="line">            &#125;,</div><div class="line">            <span class="function"><span class="keyword">function</span>(<span class="params">errMsg</span>) </span>&#123;</div><div class="line">                _util.errTip(errMsg);</div><div class="line">            &#125;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    page.getConfig3();</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><em>注意：<br>由于配置options时，将<code>auto_start: false</code>设置为了false，所以用户选中了图片后，只是本地预览，不会自动上传到服务器。如果要上传图片，需手动调用start()方法<code>uploader3.start()</code>来触发上传动作。</em></p>
+<p><em>顺便温馨提示一下：<br>七牛上传图片，我测试了一下，超过5张后只有前5张能上传成功，具体是为啥我也不知道。</em></p>
+<p>至此，七牛云上传的图片的用法讲解完毕，为啥只有初级和中级？因为我很菜，哈哈哈哈~~时间不早了，晚安，全世界！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/七牛云/" rel="tag"># 七牛云</a>
+          
+            <a href="/tags/图片上传/" rel="tag"># 图片上传</a>
+          
+            <a href="/tags/图片预览/" rel="tag"># 图片预览</a>
+          
+            <a href="/tags/本地预览/" rel="tag"># 本地预览</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/07/HighCharts图表插件使用心得/" rel="next" title="HighCharts图表插件使用心得">
+                <i class="fa fa-chevron-left"></i> HighCharts图表插件使用心得
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="linlif" />
+          <p class="site-author-name" itemprop="name">linlif</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累知识，记录点滴！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/linlif" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/58cadd85c47b" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、七牛云上传图片插件的使用（初级）"><span class="nav-text">1、七牛云上传图片插件的使用（初级）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-更换头像功能"><span class="nav-text">1.1 更换头像功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、七牛云上传图片插件的使用（中级）"><span class="nav-text">2、七牛云上传图片插件的使用（中级）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-图片本地预览功能（上传前）"><span class="nav-text">2.1 图片本地预览功能（上传前）</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">linlif</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
