@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linlif.github.io/2018/04/27/JavaScript%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%BB%A7%E6%89%BF/</loc>
+    
+    <lastmod>2018-04-27T09:25:20.186Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linlif.github.io/2018/04/25/JavaScript-%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/</loc>
     
     <lastmod>2018-04-25T07:22:06.759Z</lastmod>
@@ -79,14 +86,14 @@
   </url>
   
   <url>
-    <loc>https://linlif.github.io/index.html</loc>
+    <loc>https://linlif.github.io/fullPage/index.html</loc>
     
     <lastmod>2017-06-09T08:08:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://linlif.github.io/fullPage/index.html</loc>
+    <loc>https://linlif.github.io/index.html</loc>
     
     <lastmod>2017-06-09T08:08:58.000Z</lastmod>
     
